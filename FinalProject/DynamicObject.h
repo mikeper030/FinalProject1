@@ -1,8 +1,12 @@
 #pragma once
-class DynamicObject
+#include "Object.h"
+
+
+class DynamicObject :public Object
 {
 public:
 	DynamicObject();
-	~DynamicObject();
+	virtual void move(sf::Vector2f &);
+	virtual sf::Sprite & getActiveObject();
+	
 };
-

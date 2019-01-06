@@ -1,8 +1,13 @@
 #pragma once
-class Rock
+#include "StaticObject.h"
+
+class Rock :public StaticObject
 {
 public:
-	Rock();
-	~Rock();
+	Rock(sf::Vector2f position, sf::Vector2f size);
+	void draw(sf::RenderWindow &);
+	void setPoisition(sf::Vector2f &);
+	sf::Vector2f getPosition();
+	
 };
 

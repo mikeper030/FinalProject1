@@ -1,14 +1,12 @@
 #pragma once
 #include "StaticObject.h"
-
-class Wall :public StaticObject
+#include <iostream>
+class Door :public StaticObject
 {
 public:
-	Wall(sf::Vector2f position, sf::Vector2f size);
+	Door(sf::Vector2f position, sf::Vector2f size);
 	void draw(sf::RenderWindow & w);
 	void setPoisition(sf::Vector2f &);
 	sf::Vector2f getPosition();
-	~Wall();
-private:
 };
 

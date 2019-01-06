@@ -6,7 +6,3 @@ StaticObject::StaticObject()
 {
 }
 
-
-StaticObject::~StaticObject()
-{
-}
