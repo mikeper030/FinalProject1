@@ -5,7 +5,7 @@
 // c'tor robot
 ////////////////////////////////////////////////////////
 Player::Player(sf::Vector2f  position, sf::Vector2f size)
-{
+ {
 	m_texture.loadFromFile("Bomberman.png");
 	float width = 216 / 12;
 	float height = 24;

@@ -25,12 +25,12 @@ void GameBoardManager::readSizeOfBoard()
 //////////////////////////////////////////////////////////
 //  create board by file board.txt 
 /////////////////////////////////////////////////////////
-void GameBoardManager::createBoardByFile()
+void GameBoardManager::createBoardByFile(int s_height,int s_width)
 {
 	std::string str;
 	int i = 0;
-	float size_width = 900 / m_cols;
-	float size_height = 400 / m_rows;
+	float size_width = s_width / m_cols;
+	float size_height = s_height / m_rows;
 	sf::Vector2f v;
 	v = { 0,100 };
 
@@ -84,7 +84,7 @@ void GameBoardManager::draw(sf::RenderWindow & w)
 // robot move
 ///////////////////////////////////////////////////////////
 void GameBoardManager::updateRobot(sf::Vector2f  new_position, sf::IntRect &rectSourceSprite
-	, int first, int lest, float width)
+	, int first, int last, float width)
 {
 	for (int i = 0; i < m_active.size(); i++)
 	{
@@ -93,7 +93,7 @@ void GameBoardManager::updateRobot(sf::Vector2f  new_position, sf::IntRect &rect
 		name = typeid(*m_active[i]).name();
 		if (name.compare("class Player") == 0)
 		{
-			if (rectSourceSprite.left == width * lest)
+			if (rectSourceSprite.left == width * last)
 				rectSourceSprite.left = width * first;
 			else
 				rectSourceSprite.left += width;

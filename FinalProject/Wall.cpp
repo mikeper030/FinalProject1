@@ -20,6 +20,7 @@ Wall::Wall(sf::Vector2f position, sf::Vector2f size)
 //////////////////////////////////////////////////////////
 //  draw objet 
 //////////////////////////////////////////////////////////
+//@override
 void Wall::draw(sf::RenderWindow & w)
 {
 	w.draw(m_sprite);
@@ -27,6 +28,7 @@ void Wall::draw(sf::RenderWindow & w)
 ////////////////////////////////////////////////////////
 // setting position by getting new position
 ////////////////////////////////////////////////////////
+//@override
 void Wall::setPoisition(sf::Vector2f & position)
 {
 	m_position = position;

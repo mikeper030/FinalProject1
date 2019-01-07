@@ -9,5 +9,5 @@ public:
 	Controller();
 	void startGame(std::string name_file);
 private:
-	Object m_object;
+	int m_screen_height, m_screen_width;
 };

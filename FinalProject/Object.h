@@ -5,9 +5,9 @@ class Object
 {
 public:
 	Object();
-	virtual void draw(sf::RenderWindow &);
-	virtual void setPoisition(sf::Vector2f &);
-	virtual sf::Vector2f getPosition();
+	virtual void draw(sf::RenderWindow &)=0;
+	virtual void setPoisition(sf::Vector2f &)=0;
+	virtual sf::Vector2f getPosition()=0;
 
 
 protected:

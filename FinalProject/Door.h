@@ -5,7 +5,7 @@ class Door :public StaticObject
 {
 public:
 	Door(sf::Vector2f position, sf::Vector2f size);
-	void draw(sf::RenderWindow & w);
+	void draw(sf::RenderWindow & w) override;
 	void setPoisition(sf::Vector2f &);
 	sf::Vector2f getPosition();
 };

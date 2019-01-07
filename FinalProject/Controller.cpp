@@ -8,13 +8,15 @@ Controller::Controller()
 
 void Controller::startGame(std::string  name_file)
 {
-	sf::RenderWindow window(sf::VideoMode(900, 500, 32), "Bomberman",
-		sf::Style::Titlebar | sf::Style::Close);;
-	sf::RectangleShape winRec(sf::Vector2f(900, 500));
+	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
+	m_screen_height = sf::VideoMode::getDesktopMode().height*0.7;
+	sf::RenderWindow window(sf::VideoMode(m_screen_width, m_screen_height, 32), "Bomberman",
+	sf::Style::Titlebar | sf::Style::Close);;
+	sf::RectangleShape winRec(sf::Vector2f(m_screen_width, m_screen_height));
 	winRec.setFillColor(sf::Color::Color(149, 176, 168));
 	winRec.setPosition(0, 0);
 
-	sf::RectangleShape boardRec(sf::Vector2f(900, 400));
+	sf::RectangleShape boardRec(sf::Vector2f(m_screen_width, m_screen_height));
 	boardRec.setFillColor(sf::Color::Color(255, 173, 43));
 	boardRec.setPosition(0, 100);
 
@@ -26,7 +28,7 @@ void Controller::startGame(std::string  name_file)
 		return;
 	GameBoardManager game(file);
 	game.readSizeOfBoard();
-	game.createBoardByFile();
+	game.createBoardByFile(m_screen_height,m_screen_width);
 	float width = 216 / 12;
 	float height = 24;
 	sf::IntRect rectSourceSprite1(0, 0, width, height);
@@ -54,8 +56,8 @@ void Controller::startGame(std::string  name_file)
 			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Right))
 			{
 				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				game.updateRobot({ 5,0 }, rectSourceSprite2, 3, 5, width);
-				std::cout << "down" << std::endl;
+				game.updateRobot({ 10,0 }, rectSourceSprite2, 3, 5, width);
+				std::cout << "right" << std::endl;
 				//clock.restart();
 				break;
 				//}
@@ -63,8 +65,8 @@ void Controller::startGame(std::string  name_file)
 			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Down))
 			{
 				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				game.updateRobot({ 0.f,5 }, rectSourceSprite3, 6, 8, width);
-				std::cout << "left" << std::endl;
+				game.updateRobot({ 0.f,10 }, rectSourceSprite3, 6, 8, width);
+				std::cout << "down" << std::endl;
 				//clock.restart();
 				break;
 				//}
@@ -72,7 +74,7 @@ void Controller::startGame(std::string  name_file)
 			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Left))
 			{
 				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				game.updateRobot({ -5,0 }, rectSourceSprite4, 9, 11, width);
+				game.updateRobot({ -10,0 }, rectSourceSprite4, 9, 11, width);
 				std::cout << "left" << std::endl;
 				//clock.restart();
 				break;
@@ -81,8 +83,8 @@ void Controller::startGame(std::string  name_file)
 			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Up))
 			{
 				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				game.updateRobot({ 0,-5 }, rectSourceSprite1, 0, 2, width);
-				std::cout << "right" << std::endl;
+				game.updateRobot({ 0,-10 }, rectSourceSprite1, 0, 2, width);
+				std::cout << "up" << std::endl;
 				//clock.restart();
 				break;
 				//	}

@@ -20,6 +20,7 @@ Guard::Guard(sf::Vector2f  position, sf::Vector2f size)
 //////////////////////////////////////////////////////////
 //  draw objet 
 //////////////////////////////////////////////////////////
+//@override
 void Guard::draw(sf::RenderWindow & w)
 {
 	w.draw(m_sprite);
@@ -27,6 +28,7 @@ void Guard::draw(sf::RenderWindow & w)
 ////////////////////////////////////////////////////////
 // setting position by getting new position
 ////////////////////////////////////////////////////////
+//@override
 void Guard::setPoisition(sf::Vector2f &position)
 {
 	m_position = position;

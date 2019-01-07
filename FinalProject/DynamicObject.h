@@ -6,7 +6,7 @@ class DynamicObject :public Object
 {
 public:
 	DynamicObject();
-	virtual void move(sf::Vector2f &);
-	virtual sf::Sprite & getActiveObject();
+	virtual void move(sf::Vector2f &)=0;
+	virtual sf::Sprite & getActiveObject()=0;
 	
 };

@@ -1,8 +1,8 @@
 #pragma once
-class SmartGuard
+#include"Guard.h"
+class SmartGuard :public Guard
 {
 public:
-	SmartGuard();
-	~SmartGuard();
+	SmartGuard(sf::Vector2f position, sf::Vector2f size);
 };
 
