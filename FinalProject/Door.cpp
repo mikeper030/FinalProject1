@@ -37,27 +37,27 @@ sf::Vector2f Door::getPosition() const
 	return m_position;
 }
 
-void Door::collide(Object & otherObject)
+void Door::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Door::collide(Player & otherObject)
+void Door::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Door::collide(SmartGuard & otherObject)
+void Door::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Door::collide(DummyGuard & otherobject)
+void Door::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Door::collide(Wall & otherObject)
+void Door::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Door::collide(Rock & otherObject)
+void Door::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 

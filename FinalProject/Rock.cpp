@@ -36,27 +36,27 @@ sf::Vector2f Rock::getPosition() const
 	return m_position;
 }
 
-void Rock::collide(Object & otherObject)
+void Rock::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Rock::collide(Player & otherObject)
+void Rock::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Rock::collide(SmartGuard & otherObject)
+void Rock::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Rock::collide(DummyGuard & otherobject)
+void Rock::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Rock::collide(Wall & otherObject)
+void Rock::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Rock::collide(Rock & otherObject)
+void Rock::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 

@@ -20,8 +20,8 @@ public:
 	//virtual void collide(Bomb& otherObject) = 0;
 
 protected:
-	int m_delta_time;
-	int m_speed;
+	float m_delta_time;
+	float m_speed;
 
 	
 };
