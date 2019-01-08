@@ -6,17 +6,8 @@
 // c'tor door
 ////////////////////////////////////////////////////////
 Door::Door(sf::Vector2f position, sf::Vector2f size)
+	:StaticObject("door.png",position,size)
 {
-	m_texture.loadFromFile("door.png");
-	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(sf::Vector2f(position));
-	m_sprite.scale(sf::Vector2f(size.x / 40, size.y / 40));
-	m_position = position;
-	std::cout << "size :" << std::endl;
-	std::cout << "wall  " << size.x << " " << size.y << std::endl;
-	std::cout << "position :" << std::endl;
-	std::cout << "wall  " << position.x << " " << position.y << std::endl;
-
 }
 //////////////////////////////////////////////////////////
 //  draw objet 
@@ -39,9 +30,34 @@ void Door::setPoisition(sf::Vector2f & position)
 ////////////////////////////////////////////////////////////
 //  getting position of door
 ////////////////////////////////////////////////////////////
+
 //@override
-sf::Vector2f Door::getPosition()
+sf::Vector2f Door::getPosition() const
 {
 	return m_position;
+}
+
+void Door::collide(Object & otherObject)
+{
+}
+
+void Door::collide(Player & otherObject)
+{
+}
+
+void Door::collide(SmartGuard & otherObject)
+{
+}
+
+void Door::collide(DummyGuard & otherobject)
+{
+}
+
+void Door::collide(Wall & otherObject)
+{
+}
+
+void Door::collide(Rock & otherObject)
+{
 }
 

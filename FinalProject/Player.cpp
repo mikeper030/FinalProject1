@@ -5,7 +5,8 @@
 // c'tor robot
 ////////////////////////////////////////////////////////
 Player::Player(sf::Vector2f  position, sf::Vector2f size)
- {
+	:DynamicObject("Bomberman.png",position,size)
+{
 	m_texture.loadFromFile("Bomberman.png");
 	float width = 216 / 12;
 	float height = 24;
@@ -27,37 +28,77 @@ Player::Player(sf::Vector2f  position, sf::Vector2f size)
 ////////////////////////////////////////////////////////
 // setting position by getting new position
 ////////////////////////////////////////////////////////
+
+//override
 void Player::setPoisition(sf::Vector2f & position)
 {
 	m_position = position;
 }
 //////////////////////////////////////////////////////////
-//  draw objet 
+//  draw object 
 //////////////////////////////////////////////////////////
+
+//override
 void Player::draw(sf::RenderWindow & w)
 {
 	w.draw(m_sprite);
 }
+
+//@override
+void Player::move(sf::Vector2f& pos, const std::vector<std::unique_ptr<Object>>& rects)
+{
+	m_sprite.move(pos);
+}
 ////////////////////////////////////////////////////////////
 //  move active object
 ////////////////////////////////////////////////////////////
-void Player::move(sf::Vector2f & new_position)
-{
-	m_sprite.move(new_position);
-}
+
+
 ////////////////////////////////////////////////////////////
 //  getting position of robot
 ////////////////////////////////////////////////////////////
-sf::Vector2f Player::getPosition()
+
+//override
+sf::Vector2f Player::getPosition() const
 {
 	return m_position;
 }
 //////////////////////////////////////////////////////////////
 //  get object
 //////////////////////////////////////////////////////////////
-sf::Sprite & Player::getActiveObject()
+
+
+
+void Player::setDeltaAspeed(float time, float speed)
 {
-	return m_sprite;
+	m_delta_time = time;
+	m_speed = speed;
+}
+
+
+
+void Player::collide(Object & otherObject)
+{
+}
+
+void Player::collide(Player & otherObject)
+{
+}
+
+void Player::collide(SmartGuard & otherObject)
+{
+}
+
+void Player::collide(DummyGuard & otherobject)
+{
+}
+
+void Player::collide(Wall & otherObject)
+{
+}
+
+void Player::collide(Rock & otherObject)
+{
 }
 
 

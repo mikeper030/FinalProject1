@@ -1,5 +1,6 @@
 #include "GameBoardManager.h"
 
+static std::vector<std::unique_ptr<Object>> m_all = { };
 
 GameBoardManager::GameBoardManager(std::ifstream & file)
 	:m_file(file)
@@ -32,7 +33,7 @@ void GameBoardManager::createBoardByFile(int s_height,int s_width)
 	float size_width = s_width / m_cols;
 	float size_height = s_height / m_rows;
 	sf::Vector2f v;
-	v = { 0,100 };
+	v = { 0,80 };
 
 	while (!m_file.eof())
 	{
@@ -43,18 +44,27 @@ void GameBoardManager::createBoardByFile(int s_height,int s_width)
 			{
 			case '/':
 				m_active.push_back(std::make_unique<Player>(v, sf::Vector2f(size_width, size_height)));
+				m_all.push_back(std::make_unique<Player>(v, sf::Vector2f(size_width, size_height)));
 				break;
 			case '!':
-				m_active.push_back(std::make_unique<Guard>(v, sf::Vector2f(size_width, size_height)));
+				m_active.push_back(std::make_unique<DummyGuard>(v, sf::Vector2f(size_width, size_height)));
+				m_all.push_back(std::make_unique<DummyGuard>(v, sf::Vector2f(size_width, size_height)));
+
 				break;
 			case '@':
 				m_static.push_back(std::make_unique<Rock>(v, sf::Vector2f(size_width, size_height)));
+				m_all.push_back(std::make_unique<Rock>(v, sf::Vector2f(size_width, size_height)));
+
 				break;
 			case '#':
 				m_static.push_back(std::make_unique<Wall>(v, sf::Vector2f(size_width, size_height)));
+				m_all.push_back(std::make_unique<Wall>(v, sf::Vector2f(size_width, size_height)));
+
 				break;
 			case 'D':
 				m_static.push_back(std::make_unique<Door>(v, sf::Vector2f(size_width, size_height)));
+				m_all.push_back(std::make_unique<Door>(v, sf::Vector2f(size_width, size_height)));
+
 				break;
 			default:
 				break;
@@ -64,6 +74,28 @@ void GameBoardManager::createBoardByFile(int s_height,int s_width)
 		v.x = 0;
 		v.y += size_height;
 	}
+}
+
+
+void GameBoardManager::moveGuards(sf::Vector2f pos, int delta,int speed, const std::vector<std::unique_ptr<Object>>& objs)
+{
+	
+	for (std::unique_ptr<DynamicObject> &obj : m_active)
+	{
+		std::string name = typeid(*obj).name();
+		if (name.compare("class DummyGuard") == 0)
+		{
+			std::cout << "move dummy guard"<<std::endl;
+			obj->move(pos,objs);
+			obj->setDeltaAspeed(delta, speed);
+		}
+		
+	}
+}
+
+ std::vector<std::unique_ptr<Object>>& GameBoardManager::getObjects() 
+{
+	 return m_all;
 }
 
 /////////////////////////////////////////////////////////
@@ -98,8 +130,8 @@ void GameBoardManager::updateRobot(sf::Vector2f  new_position, sf::IntRect &rect
 			else
 				rectSourceSprite.left += width;
 			std::cout << "move robot 2";
-			m_active[i]->getActiveObject().setTextureRect(rectSourceSprite);
-			m_active[i]->getActiveObject().move(new_position);
+			m_active[i]->getSprite().setTextureRect(rectSourceSprite);
+			m_active[i]->getSprite().move(new_position);
 		}
 	}
 }

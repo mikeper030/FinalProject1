@@ -2,19 +2,16 @@
 
 
 
-DynamicObject::DynamicObject()
+
+
+DynamicObject::DynamicObject(std::string texture, sf::Vector2f position, sf::Vector2f size)
+	:Object(texture,position,size)
 {
 }
 
-void DynamicObject::move(sf::Vector2f & v)
-{
-	m_sprite.move(v);
-}
 
-sf::Sprite & DynamicObject::getActiveObject()
-{
-	return m_sprite;
-}
+
+
 
 
 

@@ -115,10 +115,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="DummyGuard.h" />
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="GameBoardManager.h" />
     <ClInclude Include="Guard.h" />
@@ -130,10 +130,10 @@
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Board.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="DummyGuard.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="GameBoardManager.cpp" />
     <ClCompile Include="Guard.cpp" />

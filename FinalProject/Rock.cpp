@@ -5,22 +5,14 @@
 // c'tor rock
 ////////////////////////////////////////////////////////
 Rock::Rock(sf::Vector2f position, sf::Vector2f size)
+	:StaticObject("rock.png",position,size)
 {
-	m_texture.loadFromFile("rock.png");
-	m_sprite.setTexture(m_texture);
-	//	m_sprite.setSize(size);
-	m_sprite.setPosition(position);
-	m_sprite.scale(sf::Vector2f(size.x / 40, size.y / 40));
-	m_position = position;
-	std::cout << "size :" << std::endl;
-	std::cout << "rock  " << size.x << " " << size.y << std::endl;
-	std::cout << "position :" << std::endl;
-	std::cout << "rock  " << position.x << " " << position.y << std::endl;
-
 }
 //////////////////////////////////////////////////////////
 //  draw objet 
 //////////////////////////////////////////////////////////
+
+//@override
 void Rock::draw(sf::RenderWindow & w)
 {
 	w.draw(m_sprite);
@@ -28,6 +20,8 @@ void Rock::draw(sf::RenderWindow & w)
 ////////////////////////////////////////////////////////
 // setting position by getting new position
 ////////////////////////////////////////////////////////
+
+//override
 void Rock::setPoisition(sf::Vector2f & position)
 {
 	m_position = position;
@@ -35,9 +29,35 @@ void Rock::setPoisition(sf::Vector2f & position)
 ////////////////////////////////////////////////////////////
 //  getting position of rock
 ////////////////////////////////////////////////////////////
-sf::Vector2f Rock::getPosition()
+
+//override
+sf::Vector2f Rock::getPosition() const
 {
 	return m_position;
+}
+
+void Rock::collide(Object & otherObject)
+{
+}
+
+void Rock::collide(Player & otherObject)
+{
+}
+
+void Rock::collide(SmartGuard & otherObject)
+{
+}
+
+void Rock::collide(DummyGuard & otherobject)
+{
+}
+
+void Rock::collide(Wall & otherObject)
+{
+}
+
+void Rock::collide(Rock & otherObject)
+{
 }
 
 

@@ -5,22 +5,16 @@
 // c'tor wall
 ////////////////////////////////////////////////////////
 Wall::Wall(sf::Vector2f position, sf::Vector2f size)
+	:StaticObject("wall.png",position,size)
 {
-	m_texture.loadFromFile("Wall.png");
-	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(sf::Vector2f(position));
-	m_sprite.scale(sf::Vector2f(size.x / 40, size.y / 40));
-	m_position = position;
-	std::cout << "size :" << std::endl;
-	std::cout << "wall  " << size.x << " " << size.y << std::endl;
-	std::cout << "position :" << std::endl;
-	std::cout << "wall  " << position.x << " " << position.y << std::endl;
+	
 
 }
 //////////////////////////////////////////////////////////
-//  draw objet 
+//  draw object 
 //////////////////////////////////////////////////////////
-//@override
+
+//@override java style..
 void Wall::draw(sf::RenderWindow & w)
 {
 	w.draw(m_sprite);
@@ -28,6 +22,7 @@ void Wall::draw(sf::RenderWindow & w)
 ////////////////////////////////////////////////////////
 // setting position by getting new position
 ////////////////////////////////////////////////////////
+
 //@override
 void Wall::setPoisition(sf::Vector2f & position)
 {
@@ -36,13 +31,33 @@ void Wall::setPoisition(sf::Vector2f & position)
 ////////////////////////////////////////////////////////////
 //  getting position of wall
 ////////////////////////////////////////////////////////////
-sf::Vector2f Wall::getPosition()
+sf::Vector2f Wall::getPosition() const
 {
 	return m_position;
 }
-//////////////////////////////////////////////////////////////
-//  d'tor
-//////////////////////////////////////////////////////////////
-Wall::~Wall()
+
+void Wall::collide(Object & otherObject)
 {
 }
+
+void Wall::collide(Player & otherObject)
+{
+}
+
+void Wall::collide(SmartGuard & otherObject)
+{
+}
+
+void Wall::collide(DummyGuard & otherobject)
+{
+}
+
+void Wall::collide(Wall & otherObject)
+{
+}
+
+void Wall::collide(Rock & otherObject)
+{
+}
+
+
