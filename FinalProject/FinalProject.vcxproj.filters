@@ -130,8 +130,12 @@
     <Image Include="wall.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="music.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="sansation.ttf" />
+    <Font Include="1stenterprisesexpand.ttf" />
   </ItemGroup>
 </Project>

@@ -153,11 +153,13 @@
     <Image Include="floor.png" />
     <Image Include="guard.png" />
     <Image Include="inter.png" />
+    <Image Include="music.png" />
     <Image Include="robot.png" />
     <Image Include="rock.png" />
     <Image Include="wall.png" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="1stenterprisesexpand.ttf" />
     <Font Include="sansation.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

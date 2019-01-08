@@ -85,10 +85,8 @@ void GameBoardManager::moveGuards(sf::Vector2f pos, float delta,float speed, con
 		std::string name = typeid(*obj).name();
 		if (name.compare("class DummyGuard") == 0)
 		{
-			
 			obj->setDeltaAspeed(delta, speed);
-			obj->move(pos,objs);
-			
+			obj->move(pos,objs);	
 		}
 		
 	}

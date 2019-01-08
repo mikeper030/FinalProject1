@@ -37,8 +37,6 @@ void DummyGuard::setPoisition(sf::Vector2f &position)
 void DummyGuard::move(sf::Vector2f& pos,const std::vector<std::unique_ptr<Object>>& objects)
 {
 	
-	
-	
 	//std::cout << m_delta_time;
 	if (m_setps == 0 || m_direction == 0)
 	{
@@ -69,18 +67,17 @@ void DummyGuard::move(sf::Vector2f& pos,const std::vector<std::unique_ptr<Object
 
 		case 3:
 			//up
-			v = sf::Vector2f{ 0.f,m_speed*m_delta_time };
+			v = sf::Vector2f{ 0.f,-m_speed*m_delta_time };
 			m_sprite.move(v);
 			m_setps--;
 			break;
 
 		case 4:
 			//down
-			v = sf::Vector2f{ 0.f, m_delta_time };
+			v = sf::Vector2f{ 0.f, m_delta_time*m_speed };
 			m_sprite.move(v);
 			m_setps--;
 			break;
-
 		
 	}
 
@@ -134,12 +131,12 @@ void DummyGuard::collide(Object & otherObject, const std::vector<std::unique_ptr
 
 void DummyGuard::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
-	otherObject.collide(*this);
+	otherObject.collide(*this,objects);
 }
 
 void DummyGuard::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
-
+	//otherObject.collide(*this,objects);
 }
 
 void DummyGuard::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
@@ -148,10 +145,11 @@ void DummyGuard::collide(DummyGuard & otherobject, const std::vector<std::unique
 
 void DummyGuard::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
-	
+	//otherObject.collide(*this, objects);
 }
 
 void DummyGuard::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
+	//otherObject.collide(*this, objects);
 }
 
