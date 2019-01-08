@@ -34,8 +34,57 @@ void DummyGuard::setPoisition(sf::Vector2f &position)
 ////////////////////////////////////////////////////////////
 //  move active object
 ////////////////////////////////////////////////////////////
-void DummyGuard::move(sf::Vector2f & pos, const std::vector<std::unique_ptr<Object>>& objects)
+void DummyGuard::move(sf::Vector2f& pos,const std::vector<std::unique_ptr<Object>>& objects)
 {
+	
+	
+	
+	//std::cout << m_delta_time;
+	if (m_setps == 0 || m_direction == 0)
+	{
+		std::cout << "start";
+		
+		int range = 4;
+		m_setps = 100;
+		m_direction = rand() % range + 1;
+	}
+	sf::Vector2f v;
+	switch (m_direction)
+		{
+
+		case 1:
+			//right
+			
+			v = sf::Vector2f{ m_speed*m_delta_time , 0.f };
+			m_sprite.move(v);
+			m_setps--;
+			break;
+
+		case 2:
+			//left
+			v = sf::Vector2f{ -m_speed * m_delta_time, 0.f };
+			m_sprite.move(v);
+			m_setps--;
+			break;
+
+		case 3:
+			//up
+			v = sf::Vector2f{ 0.f,m_speed*m_delta_time };
+			m_sprite.move(v);
+			m_setps--;
+			break;
+
+		case 4:
+			//down
+			v = sf::Vector2f{ 0.f, m_delta_time };
+			m_sprite.move(v);
+			m_setps--;
+			break;
+
+		
+	}
+
+	
 	for (const auto& other : objects)
 	{
 		// Don't collide with ourselves
@@ -46,14 +95,19 @@ void DummyGuard::move(sf::Vector2f & pos, const std::vector<std::unique_ptr<Obje
 
 		if (m_sprite.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
 		{
-			other->collide(*this);
+			other->collide(*this,objects);
+			
 		}
 	}
-	m_sprite.move(pos);
+	
+	//m_sprite.move(pos);
 
 	
 }
-
+void DummyGuard::resetPosition()
+{
+	m_setps = 0;
+}
 
 ////////////////////////////////////////////////////////////
 //  getting position of guard
@@ -73,65 +127,31 @@ void DummyGuard::setDeltaAspeed(float time, float speed)
 
 
 
-void DummyGuard::collide(Object & otherObject)
+void DummyGuard::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
-	otherObject.collide(*this);
+	otherObject.collide(*this,objects);
 
 }
 
-void DummyGuard::collide(Player & otherObject)
+void DummyGuard::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 	//player strike
 }
 
-void DummyGuard::collide(SmartGuard & otherObject)
+void DummyGuard::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void DummyGuard::collide(DummyGuard & otherobject)
+void DummyGuard::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void DummyGuard::collide(Wall & otherObject)
+void DummyGuard::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
-	randomMove();
-}
-
-void DummyGuard::collide(Rock & otherObject)
-{
-}
-
-void DummyGuard::randomMove()
-{
-	sf::Vector2f v;
-	int range = 4;
-	int num = rand() % range + 1;
 	
-	switch (num)
-	{
-	case 1:
-		//right
-		v = {float( m_speed * m_delta_time) , 0.f };
-		move(v,GameBoardManager::getObjects());
-		break;
-	
-	case 2:
-		//left
-		v = { float(-m_speed * m_delta_time) , 0.f};
-		move(v,GameBoardManager::getObjects());
-		break;
-	
-	case 3:
-		//up
-		v = { 0.f,float( m_speed * m_delta_time) };
-		move(v, GameBoardManager::getObjects());
-		break;
-	
-	case 4:
-		//down
-		v = { 0.f, float(-m_speed * m_delta_time) };
-		move(v, GameBoardManager::getObjects());
-		break;
-
-	}
 }
+
+void DummyGuard::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+{
+}
+

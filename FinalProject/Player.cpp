@@ -77,27 +77,27 @@ void Player::setDeltaAspeed(float time, float speed)
 
 
 
-void Player::collide(Object & otherObject)
+void Player::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Player::collide(Player & otherObject)
+void Player::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Player::collide(SmartGuard & otherObject)
+void Player::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Player::collide(DummyGuard & otherobject)
+void Player::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Player::collide(Wall & otherObject)
+void Player::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Player::collide(Rock & otherObject)
+void Player::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 

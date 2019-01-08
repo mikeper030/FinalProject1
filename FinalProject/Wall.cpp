@@ -1,6 +1,6 @@
 #include "Wall.h"
 #include <iostream>
-
+#include "DummyGuard.h"
 ////////////////////////////////////////////////////////
 // c'tor wall
 ////////////////////////////////////////////////////////
@@ -36,28 +36,31 @@ sf::Vector2f Wall::getPosition() const
 	return m_position;
 }
 
-void Wall::collide(Object & otherObject)
+void Wall::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Wall::collide(Player & otherObject)
+void Wall::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Wall::collide(SmartGuard & otherObject)
+void Wall::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Wall::collide(DummyGuard & otherobject)
+void Wall::collide(DummyGuard & guard, const std::vector<std::unique_ptr<Object>>& objects)
+{
+	
+	guard.resetPosition();
+}
+
+void Wall::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Wall::collide(Wall & otherObject)
+void Wall::collide(Rock & rock, const std::vector<std::unique_ptr<Object>>& objects)
 {
-}
-
-void Wall::collide(Rock & otherObject)
-{
+  
 }
 
 

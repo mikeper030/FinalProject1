@@ -1,6 +1,6 @@
 #include "GameBoardManager.h"
 
-static std::vector<std::unique_ptr<Object>> m_all = { };
+
 
 GameBoardManager::GameBoardManager(std::ifstream & file)
 	:m_file(file)
@@ -48,7 +48,7 @@ void GameBoardManager::createBoardByFile(int s_height,int s_width)
 				break;
 			case '!':
 				m_active.push_back(std::make_unique<DummyGuard>(v, sf::Vector2f(size_width, size_height)));
-				m_all.push_back(std::make_unique<DummyGuard>(v, sf::Vector2f(size_width, size_height)));
+			    m_all.push_back(std::make_unique<DummyGuard>(v, sf::Vector2f(size_width, size_height)));
 
 				break;
 			case '@':
@@ -77,7 +77,7 @@ void GameBoardManager::createBoardByFile(int s_height,int s_width)
 }
 
 
-void GameBoardManager::moveGuards(sf::Vector2f pos, int delta,int speed, const std::vector<std::unique_ptr<Object>>& objs)
+void GameBoardManager::moveGuards(sf::Vector2f pos, float delta,float speed, const std::vector<std::unique_ptr<Object>>& objs)
 {
 	
 	for (std::unique_ptr<DynamicObject> &obj : m_active)
@@ -85,9 +85,10 @@ void GameBoardManager::moveGuards(sf::Vector2f pos, int delta,int speed, const s
 		std::string name = typeid(*obj).name();
 		if (name.compare("class DummyGuard") == 0)
 		{
-			std::cout << "move dummy guard"<<std::endl;
-			obj->move(pos,objs);
+			
 			obj->setDeltaAspeed(delta, speed);
+			obj->move(pos,objs);
+			
 		}
 		
 	}

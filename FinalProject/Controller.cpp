@@ -9,8 +9,10 @@ Controller::Controller()
 void Controller::startGame(std::string  name_file)
 {
 	const float playerSpeed = 300.f;
+	const float guardSpeed = 100.f;
 	
-
+	sf::Clock timer;
+	const sf::Time time = sf::seconds(2.f);
 	bool isPlaying = true;
 
 	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
@@ -103,7 +105,12 @@ void Controller::startGame(std::string  name_file)
 				//	}
 
 			}
-			manager.moveGuards(sf::Vector2f{ 0.f,-playerSpeed * deltaTime },deltaTime,playerSpeed,manager.getObjects());
+			
+			//if (timer.getElapsedTime() > time) 
+			//{
+				manager.moveGuards(sf::Vector2f{ 0,0 }, deltaTime, guardSpeed, manager.getObjects());
+				timer.restart();
+			//}
 		}
 
 		// Clear the window

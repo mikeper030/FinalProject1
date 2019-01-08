@@ -20,12 +20,12 @@ public:
 	virtual sf::Sprite& getSprite();
 	
 	//double dispatch collision management
-	virtual void collide(Object& otherObject) = 0;
-	virtual void collide(Player& otherObject) = 0;
-	virtual void collide(SmartGuard& otherObject) = 0;
-	virtual void collide(DummyGuard& otherobject) = 0;
-	virtual void collide(Wall& otherObject) = 0;
-	virtual void collide(Rock& otherObject) = 0;
+	virtual void collide(Object& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
+	virtual void collide(Player& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
+	virtual void collide(SmartGuard& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
+	virtual void collide(DummyGuard& otherobject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
+	virtual void collide(Wall& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
+	virtual void collide(Rock& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
 
 protected:
 	sf::Vector2f  m_position;

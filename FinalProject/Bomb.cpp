@@ -20,27 +20,27 @@ sf::Vector2f Bomb::getPosition() const
 	return sf::Vector2f();
 }
 
-void Bomb::collide(Object & otherObject)
+void Bomb::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Bomb::collide(Player & otherObject)
+void Bomb::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Bomb::collide(SmartGuard & otherObject)
+void Bomb::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Bomb::collide(DummyGuard & otherobject)
+void Bomb::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Bomb::collide(Wall & otherObject)
+void Bomb::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
-void Bomb::collide(Rock & otherObject)
+void Bomb::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
 {
 }
 
