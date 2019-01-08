@@ -54,6 +54,9 @@
     <ClInclude Include="DummyGuard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Controller.cpp">
@@ -98,5 +101,37 @@
     <ClCompile Include="DummyGuard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bomberman.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="door.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="floor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="guard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="inter.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="robot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="rock.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="sansation.ttf" />
   </ItemGroup>
 </Project>

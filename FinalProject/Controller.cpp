@@ -42,6 +42,21 @@ void Controller::startGame(std::string  name_file)
 	sf::IntRect rectSourceSprite3(width * 6, 0, width, height);
 	sf::IntRect rectSourceSprite4(width * 9, 0, width, height);
 
+	/*sf::Texture texture;
+	texture.loadFromFile("inter.png");
+	sf::RectangleShape rectInter(sf::Vector2f(m_screen_width, m_screen_height));
+	rectInter.setTexture(&texture);
+	rectInter.setPosition(0, 0);
+
+
+	sf::RectangleShape newGame_botton(sf::Vector2f(200, 50));
+	sf::RectangleShape exitGame_botton(sf::Vector2f(200, 50));
+	sf::Font font;
+	font.loadFromFile("sansation.ttf");
+	sf::Text menu_newGame;
+	sf::Text menu_exitGame;*/
+
+
 	clock.restart();
 	
 	while (window.isOpen())
@@ -57,7 +72,6 @@ void Controller::startGame(std::string  name_file)
 				window.close();
 				break;
 			}
-
 			
 				
 		}
@@ -121,16 +135,61 @@ void Controller::startGame(std::string  name_file)
 			// Draw the pause message
 			//window.draw(pauseMessage);
 		}
-
+		/*window.draw(rectInter);
+		window.draw(newGame_botton);
+		window.draw(exitGame_botton);
+		window.draw(menu_newGame);
+		window.draw(menu_exitGame);*/
 		// Display things on screen
 		window.display();
 	}
-
-
-
-
 	
 }
 
 
+//bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::RectangleShape & newGame_botton,
+//	sf::RectangleShape & exitGame_botton, sf::Font & font,
+//	sf::Text& menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window)
+//{
+//	newGame_botton.setFillColor(sf::Color::Red);
+//	newGame_botton.setPosition(m_screen_width - (m_screen_width / 4), m_screen_height - (m_screen_height / 8));
+//
+//	exitGame_botton.setFillColor(sf::Color::Red);
+//	exitGame_botton.setPosition(m_screen_width - (m_screen_width / 6), m_screen_height - (m_screen_height / 8));
+//
+//	menu_newGame.setFont(font);
+//	menu_newGame.setCharacterSize(30);
+//	menu_newGame.setPosition(m_screen_width - (m_screen_width / 4 + 35), m_screen_height - (m_screen_height / 8 + 15));
+//	menu_newGame.setFillColor(sf::Color::Black);
+//	menu_newGame.setString("New Game");
+//
+//	menu_exitGame.setFont(font);
+//	menu_exitGame.setCharacterSize(30);
+//	menu_exitGame.setPosition(m_screen_width - (m_screen_width / 6 + 35), m_screen_height - (m_screen_height / 8 + 15));
+//	menu_exitGame.setFillColor(sf::Color::Black);
+//	menu_exitGame.setString("Exit Game");
+//
+//	//get mouse position 
+//	sf::Vector2i mouse = sf::Mouse::getPosition(window);
+//	//compute global boundries
+//	sf::Vector2f mouse_world = window.mapPixelToCoords(mouse);
+//
+//	if (event.mouseButton.button == sf::Mouse::Button::Left)
+//	{
+//		if (exitGame_botton.getGlobalBounds().contains(mouse_world))
+//		{
+//			window.close();
+//
+//		}
+//	}
+//
+//	if (event.mouseButton.button == sf::Mouse::Button::Left)
+//	{
+//		if (newGame_botton.getGlobalBounds().contains(mouse_world))
+//		{
+//			return true;
+//		}
+//	}
+//
+//}
 

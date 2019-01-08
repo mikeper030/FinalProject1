@@ -122,6 +122,7 @@
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="GameBoardManager.h" />
     <ClInclude Include="Guard.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rock.h" />
@@ -138,12 +139,26 @@
     <ClCompile Include="GameBoardManager.cpp" />
     <ClCompile Include="Guard.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SmartGuard.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Wall.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bomberman.png" />
+    <Image Include="door.png" />
+    <Image Include="floor.png" />
+    <Image Include="guard.png" />
+    <Image Include="inter.png" />
+    <Image Include="robot.png" />
+    <Image Include="rock.png" />
+    <Image Include="wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="sansation.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

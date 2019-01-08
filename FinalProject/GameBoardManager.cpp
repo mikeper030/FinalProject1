@@ -93,6 +93,7 @@ void GameBoardManager::moveGuards(sf::Vector2f pos, int delta,int speed, const s
 	}
 }
 
+
  std::vector<std::unique_ptr<Object>>& GameBoardManager::getObjects() 
 {
 	 return m_all;

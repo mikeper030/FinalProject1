@@ -51,7 +51,6 @@ void DummyGuard::move(sf::Vector2f & pos, const std::vector<std::unique_ptr<Obje
 	}
 	m_sprite.move(pos);
 
-	
 }
 
 
@@ -81,11 +80,12 @@ void DummyGuard::collide(Object & otherObject)
 
 void DummyGuard::collide(Player & otherObject)
 {
-	//player strike
+	otherObject.collide(*this);
 }
 
 void DummyGuard::collide(SmartGuard & otherObject)
 {
+
 }
 
 void DummyGuard::collide(DummyGuard & otherobject)
