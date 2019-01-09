@@ -45,7 +45,7 @@ void Player::draw(sf::RenderWindow & w)
 }
 
 //@override
-void Player::move(sf::Vector2f& pos, const std::vector<std::unique_ptr<Object>>& rects)
+void Player::move(sf::Vector2f& pos, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 	m_sprite.move(pos);
 }
@@ -75,30 +75,32 @@ void Player::setDeltaAspeed(float time, float speed)
 	m_speed = speed;
 }
 
-
-
-void Player::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Player::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Player::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Player::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Player::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Player::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Player::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
+void Player::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Player::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Player::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& staticss)
 {
 }
 
-void Player::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Player::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
-
 

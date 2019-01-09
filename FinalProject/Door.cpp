@@ -37,27 +37,32 @@ sf::Vector2f Door::getPosition() const
 	return m_position;
 }
 
-void Door::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Door::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Door::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Door::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Door::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Door::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Door::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
+void Door::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Door::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Door::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Door::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Door::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
-

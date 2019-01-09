@@ -6,7 +6,8 @@ class SmartGuard;
 class DummyGuard;
 class Wall;
 class Rock;
-
+class DynamicObject;
+class StaticObject;
 
 class Object
 {
@@ -20,12 +21,12 @@ public:
 	virtual sf::Sprite& getSprite();
 	
 	//double dispatch collision management
-	virtual void collide(Object& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
-	virtual void collide(Player& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
-	virtual void collide(SmartGuard& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
-	virtual void collide(DummyGuard& otherobject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
-	virtual void collide(Wall& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
-	virtual void collide(Rock& otherObject, const std::vector<std::unique_ptr<Object>>& objects) = 0;
+	virtual void collide(Object& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) = 0;
+	virtual void collide(Player& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) = 0;
+	virtual void collide(SmartGuard& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) = 0;
+	virtual void collide(DummyGuard& otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) = 0;
+	virtual void collide(Wall& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) = 0;
+	virtual void collide(Rock& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) = 0;
 
 protected:
 	sf::Vector2f  m_position;

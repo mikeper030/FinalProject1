@@ -22,8 +22,10 @@ public:
 	GameBoardManager(std::ifstream & file);
 	void readSizeOfBoard();
 	void createBoardByFile(int,int);
-	void moveGuards(sf::Vector2f pos, float delta, float speed, const std::vector<std::unique_ptr<Object>>& objs);
-	std::vector<std::unique_ptr<Object>> &getObjects() ;
+	void moveGuards(sf::Vector2f pos, float delta, float speed, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics);
+	std::vector<std::unique_ptr<StaticObject>> &getStaticObjects() ;
+	std::vector<std::unique_ptr<DynamicObject>> &getDynamicObjects();
+
 
 	void draw(sf::RenderWindow & w);
 	void updateRobot(sf::Vector2f  new_position, sf::IntRect &rectSourceSprite, int first, int lest, float width);

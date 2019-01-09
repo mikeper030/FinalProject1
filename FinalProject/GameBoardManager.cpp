@@ -17,7 +17,7 @@ void GameBoardManager::readSizeOfBoard()
 	iss.str(line);
 	int rows, cols, time, bomb;
 	iss >> rows >> cols >> time >> bomb;
-	std::cout << rows << " " << cols << " " << time << " " << bomb << std::endl;
+	//std::cout << rows << " " << cols << " " << time << " " << bomb << std::endl;
 	m_rows = rows;
 	m_cols = cols;
 	m_number_bombs = bomb;
@@ -43,27 +43,29 @@ void GameBoardManager::createBoardByFile(int s_height,int s_width)
 			switch (str[j])
 			{
 			case '/':
+				
 				m_active.push_back(std::make_unique<Player>(v, sf::Vector2f(size_width, size_height)));
-				m_all.push_back(std::make_unique<Player>(v, sf::Vector2f(size_width, size_height)));
+				
 				break;
+				
 			case '!':
 				m_active.push_back(std::make_unique<DummyGuard>(v, sf::Vector2f(size_width, size_height)));
-			    m_all.push_back(std::make_unique<DummyGuard>(v, sf::Vector2f(size_width, size_height)));
+			   
 
 				break;
 			case '@':
 				m_static.push_back(std::make_unique<Rock>(v, sf::Vector2f(size_width, size_height)));
-				m_all.push_back(std::make_unique<Rock>(v, sf::Vector2f(size_width, size_height)));
+			
 
 				break;
 			case '#':
 				m_static.push_back(std::make_unique<Wall>(v, sf::Vector2f(size_width, size_height)));
-				m_all.push_back(std::make_unique<Wall>(v, sf::Vector2f(size_width, size_height)));
+				
 
 				break;
 			case 'D':
 				m_static.push_back(std::make_unique<Door>(v, sf::Vector2f(size_width, size_height)));
-				m_all.push_back(std::make_unique<Door>(v, sf::Vector2f(size_width, size_height)));
+				
 
 				break;
 			default:
@@ -77,7 +79,8 @@ void GameBoardManager::createBoardByFile(int s_height,int s_width)
 }
 
 
-void GameBoardManager::moveGuards(sf::Vector2f pos, float delta,float speed, const std::vector<std::unique_ptr<Object>>& objs)
+void GameBoardManager::moveGuards(sf::Vector2f pos, float delta,float speed, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 	
 	for (std::unique_ptr<DynamicObject> &obj : m_active)
@@ -87,17 +90,24 @@ void GameBoardManager::moveGuards(sf::Vector2f pos, float delta,float speed, con
 		{
 			
 			obj->setDeltaAspeed(delta, speed);
-			obj->move(pos,objs);
+			obj->move(pos,movable,statics);
 			
 		}
 		
 	}
 }
 
- std::vector<std::unique_ptr<Object>>& GameBoardManager::getObjects() 
+std::vector<std::unique_ptr<StaticObject>>& GameBoardManager::getStaticObjects()
 {
-	 return m_all;
+	return m_static;
 }
+
+std::vector<std::unique_ptr<DynamicObject>>& GameBoardManager::getDynamicObjects()
+{
+	return m_active;
+}
+
+ 
 
 /////////////////////////////////////////////////////////
 //  draw the board 

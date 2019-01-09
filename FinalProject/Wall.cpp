@@ -36,31 +36,34 @@ sf::Vector2f Wall::getPosition() const
 	return m_position;
 }
 
-void Wall::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Wall::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Wall::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Wall::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Wall::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Wall::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Wall::collide(DummyGuard & guard, const std::vector<std::unique_ptr<Object>>& objects)
+void Wall::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
-	
-	guard.resetPosition();
+	otherobject.changeDirection();
+	std::cout << "change";
 }
 
-void Wall::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Wall::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Wall::collide(Rock & rock, const std::vector<std::unique_ptr<Object>>& objects)
+void Wall::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
-  
 }
-
-

@@ -13,7 +13,7 @@ void Controller::startGame(std::string  name_file)
 	
 	sf::Clock timer;
 	const sf::Time time = sf::seconds(2.f);
-	bool isPlaying = true;
+	bool isPlaying = false;
 
 	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
 	m_screen_height = sf::VideoMode::getDesktopMode().height*0.7;
@@ -34,6 +34,7 @@ void Controller::startGame(std::string  name_file)
 	std::ifstream file(name_file);
 	if (!file.good())
 		return;
+	
 	GameBoardManager manager(file);
 	manager.readSizeOfBoard();
 	manager.createBoardByFile(m_screen_height,m_screen_width);
@@ -43,6 +44,26 @@ void Controller::startGame(std::string  name_file)
 	sf::IntRect rectSourceSprite2(width * 3, 0, width, height);
 	sf::IntRect rectSourceSprite3(width * 6, 0, width, height);
 	sf::IntRect rectSourceSprite4(width * 9, 0, width, height);
+
+	sf::Texture texture;
+	texture.loadFromFile("inter.png");
+	sf::RectangleShape rectInter(sf::Vector2f(m_screen_width, m_screen_height));
+	rectInter.setTexture(&texture);
+	rectInter.setPosition(0, 0);
+	sf::Texture soundTexture;
+	soundTexture.loadFromFile("music.png");
+	sf::Sprite soundIcon(soundTexture);
+	soundIcon.setPosition(20, 20);
+
+
+	sf::RectangleShape newGame_botton(sf::Vector2f(m_screen_width/10, m_screen_height/10));
+	sf::RectangleShape exitGame_botton(sf::Vector2f(m_screen_width / 10, m_screen_height / 10));
+	sf::Font font;
+	font.loadFromFile("1stenterprisesexpand.ttf");
+	sf::Text menu_newGame;
+	sf::Text menu_exitGame;
+
+
 
 	clock.restart();
 	
@@ -63,7 +84,10 @@ void Controller::startGame(std::string  name_file)
 			
 				
 		}
-
+		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
+		{
+			isPlaying = true;
+		}
 		if (isPlaying)
 		{
 			float deltaTime = clock.restart().asSeconds();
@@ -108,7 +132,7 @@ void Controller::startGame(std::string  name_file)
 			
 			//if (timer.getElapsedTime() > time) 
 			//{
-				manager.moveGuards(sf::Vector2f{ 0,0 }, deltaTime, guardSpeed, manager.getObjects());
+				manager.moveGuards(sf::Vector2f{ 0,0 }, 0.006, guardSpeed, manager.getDynamicObjects(),manager.getStaticObjects());
 				timer.restart();
 			//}
 		}
@@ -126,7 +150,16 @@ void Controller::startGame(std::string  name_file)
 		else
 		{
 			// Draw the pause message
+		
+			// Draw the pause message
 			//window.draw(pauseMessage);
+			window.draw(rectInter);
+			window.draw(newGame_botton);
+			window.draw(exitGame_botton);
+			window.draw(menu_newGame);
+			window.draw(menu_exitGame);
+			window.draw(soundIcon);
+		
 		}
 
 		// Display things on screen
@@ -139,5 +172,50 @@ void Controller::startGame(std::string  name_file)
 	
 }
 
+
+bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::RectangleShape & newGame_botton,
+	sf::RectangleShape & exitGame_botton, sf::Font & font,
+	sf::Text& menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window)
+{
+	newGame_botton.setFillColor(sf::Color::Red);
+	newGame_botton.setPosition(65, 400);
+
+	exitGame_botton.setFillColor(sf::Color::Red);
+	exitGame_botton.setPosition(65, 470);
+
+	menu_newGame.setFont(font);
+	menu_newGame.setCharacterSize(30);
+	menu_newGame.setPosition(73, 405);
+	menu_newGame.setFillColor(sf::Color::Black);
+	menu_newGame.setString("New Game");
+
+	menu_exitGame.setFont(font);
+	menu_exitGame.setCharacterSize(30);
+	menu_exitGame.setPosition(73, 475);
+	menu_exitGame.setFillColor(sf::Color::Black);
+	menu_exitGame.setString("Exit Game");
+
+	//get mouse position 
+	sf::Vector2i mouse = sf::Mouse::getPosition(window);
+	//compute global boundries
+	sf::Vector2f mouse_world = window.mapPixelToCoords(mouse);
+
+	if (event.mouseButton.button == sf::Mouse::Button::Left)
+	{
+		if (exitGame_botton.getGlobalBounds().contains(mouse_world))
+		{
+			window.close();
+		}
+	}
+
+	if (event.mouseButton.button == sf::Mouse::Button::Left)
+	{
+		if (newGame_botton.getGlobalBounds().contains(mouse_world))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 

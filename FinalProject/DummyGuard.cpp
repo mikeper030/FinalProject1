@@ -8,10 +8,15 @@
 DummyGuard::DummyGuard(sf::Vector2f  position, sf::Vector2f size)
 	:Guard("guard.png",position,size)
 {
+	int range = 4;
 	
+	//random the direction
+	m_direction = rand() % range + 1;
+	m_prev_direction = m_direction;
+	setPoisition(position);
 }
 //////////////////////////////////////////////////////////
-//  draw objet 
+//  draw object 
 //////////////////////////////////////////////////////////
 
 //@override
@@ -30,62 +35,31 @@ void DummyGuard::setPoisition(sf::Vector2f &position)
 }
 
 
-
-////////////////////////////////////////////////////////////
-//  move active object
-////////////////////////////////////////////////////////////
-void DummyGuard::move(sf::Vector2f& pos,const std::vector<std::unique_ptr<Object>>& objects)
+void DummyGuard::changeDirection()
 {
+	//steps or direction reset
 	
-	
-	
-	//std::cout << m_delta_time;
-	if (m_setps == 0 || m_direction == 0)
-	{
-		std::cout << "start";
-		
+		//std::cout << "start";
+
 		int range = 4;
-		m_setps = 100;
-		m_direction = rand() % range + 1;
-	}
-	sf::Vector2f v;
-	switch (m_direction)
-		{
-
-		case 1:
-			//right
-			
-			v = sf::Vector2f{ m_speed*m_delta_time , 0.f };
-			m_sprite.move(v);
-			m_setps--;
-			break;
-
-		case 2:
-			//left
-			v = sf::Vector2f{ -m_speed * m_delta_time, 0.f };
-			m_sprite.move(v);
-			m_setps--;
-			break;
-
-		case 3:
-			//up
-			v = sf::Vector2f{ 0.f,m_speed*m_delta_time };
-			m_sprite.move(v);
-			m_setps--;
-			break;
-
-		case 4:
-			//down
-			v = sf::Vector2f{ 0.f, m_delta_time };
-			m_sprite.move(v);
-			m_setps--;
-			break;
-
 		
-	}
-
+		//random the direction
+		
+		
+		m_direction = rand() % range + 1;
+		
+		if(m_prev_direction==m_direction)
+			m_direction = rand() % range + 1;
+		
+		std::cout << m_direction;
+		//m_prev_direction = m_direction;
 	
-	for (const auto& other : objects)
+
+}
+
+bool DummyGuard::collides(sf::Sprite& fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
+{
+	for (const auto& other : objects1)
 	{
 		// Don't collide with ourselves
 		if (this == other.get())
@@ -93,21 +67,108 @@ void DummyGuard::move(sf::Vector2f& pos,const std::vector<std::unique_ptr<Object
 			continue;
 		}
 
-		if (m_sprite.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
+		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
 		{
-			other->collide(*this,objects);
 			
+			//other->collide(*this, objects1,objects2);
+			
+			
+			return true;
+
 		}
+		
+	}
+	for (const auto& other : objects2)
+	{
+		
+
+
+		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
+		{
+
+			//other->collide(*this, objects1,objects2);
+
+
+			return true;
+
+		}
+
+	}
+	return false;
+}
+
+void DummyGuard::checkAupdate(sf::Vector2f& pos, const std::vector<std::unique_ptr<DynamicObject>>& objects1,
+	const std::vector<std::unique_ptr<StaticObject>>& objects2)
+{
+	if (!collides(m_sprite, objects1, objects2))
+	{
+
+		m_sprite.move(pos);
+
+
+	}
+	else
+	{
+		collide(*this, objects1, objects2);
+		m_sprite.move(-pos);
+	}
+
+
+}
+////////////////////////////////////////////////////////////
+//  move active object
+////////////////////////////////////////////////////////////
+void DummyGuard::move(sf::Vector2f& pos,const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
+{
+	
+	
+	
+	
+	//std::cout << m_direction;
+	sf::Vector2f v;
+	switch (m_direction)
+		{
+
+		case 1:
+			//right
+		
+			v = sf::Vector2f{ m_speed*m_delta_time , 0.f };
+			
+			checkAupdate(v, objects1, objects2);
+			
+			  break;
+		
+		case 2:
+			//left
+			v = sf::Vector2f{ -m_speed * m_delta_time, 0.f };
+			
+			checkAupdate(v, objects1, objects2);
+			   break;
+			
+		case 3:
+			//up
+			v = sf::Vector2f{ 0.f,m_speed*m_delta_time };
+			
+				checkAupdate(v, objects1, objects2);
+			
+				break;
+		case 4:
+			//down
+			v = sf::Vector2f{ 0.f, m_delta_time*-m_speed };
+			checkAupdate(v, objects1, objects2);
+				
+				break;
+			
+		
 	}
 	
-	//m_sprite.move(pos);
+	
+	
+	
 
 	
 }
-void DummyGuard::resetPosition()
-{
-	m_setps = 0;
-}
+
 
 ////////////////////////////////////////////////////////////
 //  getting position of guard
@@ -125,33 +186,36 @@ void DummyGuard::setDeltaAspeed(float time, float speed)
 	m_speed = speed;
 }
 
-
-
-void DummyGuard::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
-{
-	otherObject.collide(*this,objects);
-
-}
-
-void DummyGuard::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
-{
-	//player strike
-}
-
-void DummyGuard::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void DummyGuard::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void DummyGuard::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
+void DummyGuard::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void DummyGuard::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void DummyGuard::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
-	
 }
 
-void DummyGuard::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void DummyGuard::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
+{
+	otherobject.changeDirection();
+}
+
+void DummyGuard::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
+{
+
+}
+
+void DummyGuard::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
+	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
+
 

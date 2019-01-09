@@ -10,12 +10,13 @@ public:
 	sf::Vector2f getPosition() const;
 	
 
-	void collide(Object& otherObject, const std::vector<std::unique_ptr<Object>>& objects) override;
-	void collide(Player& otherObject, const std::vector<std::unique_ptr<Object>>& objects) override;
-	void collide(SmartGuard& otherObject, const std::vector<std::unique_ptr<Object>>& objects) override;
-	void collide(DummyGuard& otherobject, const std::vector<std::unique_ptr<Object>>& objects)override;
-	void collide(Wall& otherObject, const std::vector<std::unique_ptr<Object>>& objects) override;
-	void collide(Rock& otherObject, const std::vector<std::unique_ptr<Object>>& objects) override;
+	void collide(Object& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
+	void collide(Player& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
+	void collide(SmartGuard& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
+	void collide(DummyGuard& otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)override;
+	void collide(Wall& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
+	void collide(Rock& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
 private:
+	bool is_collided = false;
 };
 

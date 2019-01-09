@@ -36,29 +36,26 @@ sf::Vector2f Rock::getPosition() const
 	return m_position;
 }
 
-void Rock::collide(Object & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Rock::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Rock::collide(Player & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Rock::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Rock::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Rock::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Rock::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<Object>>& objects)
+void Rock::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Rock::collide(Wall & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Rock::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
 
-void Rock::collide(Rock & otherObject, const std::vector<std::unique_ptr<Object>>& objects)
+void Rock::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 }
-
-
-
