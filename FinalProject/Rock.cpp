@@ -1,6 +1,7 @@
 #include "Rock.h"
 #include <iostream>
-
+#include "DummyGuard.h"
+#include "GameBoardManager.h"
 ////////////////////////////////////////////////////////
 // c'tor rock
 ////////////////////////////////////////////////////////
@@ -8,54 +9,47 @@ Rock::Rock(sf::Vector2f position, sf::Vector2f size)
 	:StaticObject("rock.png",position,size)
 {
 }
-//////////////////////////////////////////////////////////
-//  draw objet 
-//////////////////////////////////////////////////////////
 
-//@override
-void Rock::draw(sf::RenderWindow & w)
-{
-	w.draw(m_sprite);
-}
-////////////////////////////////////////////////////////
-// setting position by getting new position
-////////////////////////////////////////////////////////
 
-//override
-void Rock::setPoisition(sf::Vector2f & position)
-{
-	m_position = position;
-}
+
 ////////////////////////////////////////////////////////////
 //  getting position of rock
 ////////////////////////////////////////////////////////////
 
-//override
-sf::Vector2f Rock::getPosition() const
+
+bool Rock::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
 {
-	return m_position;
+	return false;
 }
 
-void Rock::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
-{
-}
-
-void Rock::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Rock::collide(Object & otherObjects, int index)
 {
 }
 
-void Rock::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Rock::collide(Player & otherObject, int index)
 {
 }
 
-void Rock::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Rock::collide(SmartGuard & otherObject, int index)
 {
 }
 
-void Rock::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Rock::collide(DummyGuard & otherobject, int index)
+{
+	otherobject.changeDirection();
+}
+
+void Rock::collide(Wall & otherObject, int index)
 {
 }
 
-void Rock::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Rock::collide(Rock & otherObject, int index)
 {
+
+}
+
+void Rock::collide(Bomb & bomb, int index)
+{
+	std::cout << "deleted rock";
+	GameBoardManager::getStaticObjects().erase(GameBoardManager::getStaticObjects().begin()+index);
 }

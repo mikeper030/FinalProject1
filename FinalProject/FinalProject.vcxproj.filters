@@ -133,6 +133,12 @@
     <Image Include="music.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\..\..\..\Desktop\OOP1\bomb.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion_sheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="sansation.ttf" />

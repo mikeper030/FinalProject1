@@ -1,5 +1,5 @@
 #include "Door.h"
-
+#include "DummyGuard.h"
 
 
 ////////////////////////////////////////////////////////
@@ -9,60 +9,39 @@ Door::Door(sf::Vector2f position, sf::Vector2f size)
 	:StaticObject("door.png",position,size)
 {
 }
-//////////////////////////////////////////////////////////
-//  draw objet 
-//////////////////////////////////////////////////////////
 
-//@override 
-void Door::draw(sf::RenderWindow & w) 
+bool Door::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
 {
-	w.draw(m_sprite);
-}
-////////////////////////////////////////////////////////
-// setting position by getting new position
-////////////////////////////////////////////////////////
-
-//@override
-void Door::setPoisition(sf::Vector2f & position)
-{
-	m_position = position;
-}
-////////////////////////////////////////////////////////////
-//  getting position of door
-////////////////////////////////////////////////////////////
-
-//@override
-sf::Vector2f Door::getPosition() const
-{
-	return m_position;
+	return false;
 }
 
-void Door::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+
+
+void Door::collide(Object & otherObject, int index)
 {
 }
 
-void Door::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Door::collide(Player & otherObject, int index)
 {
 }
 
-void Door::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Door::collide(SmartGuard & otherObject, int index)
 {
 }
 
-void Door::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Door::collide(DummyGuard & otherobject, int index)
+{
+	otherobject.changeDirection();
+}
+
+void Door::collide(Wall & otherObject, int index)
 {
 }
 
-void Door::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Door::collide(Rock & otherObject, int index)
 {
 }
 
-void Door::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Door::collide(Bomb & bomb, int index)
 {
 }

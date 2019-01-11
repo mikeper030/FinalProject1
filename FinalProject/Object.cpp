@@ -27,17 +27,18 @@ Object::Object(std::string texture_name, sf::Vector2f position, sf::Vector2f siz
 
 void Object::draw(sf::RenderWindow & w)
 {
-
+		w.draw(m_sprite);
 }
 
 
 void Object::setPoisition(sf::Vector2f &v)
 {
+	m_position = v;
 }
 
 sf::Vector2f Object::getPosition() const 
 {
-	return sf::Vector2f();
+	return m_position;
 }
 
 sf::Sprite & Object::getSprite() 

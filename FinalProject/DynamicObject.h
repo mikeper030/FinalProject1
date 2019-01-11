@@ -13,7 +13,9 @@ public:
 	
 	virtual void move(sf::Vector2f& pos , const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics)=0;
 	
-	
+
+	virtual void checkAupdate(sf::Vector2f & pos, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)=0;
+
 	virtual void setDeltaAspeed(float, float) = 0;
 	
 	

@@ -148,8 +148,10 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\OOP1\bomb.png" />
     <Image Include="Bomberman.png" />
     <Image Include="door.png" />
+    <Image Include="explosion_sheet.png" />
     <Image Include="floor.png" />
     <Image Include="guard.png" />
     <Image Include="inter.png" />

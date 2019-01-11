@@ -1,6 +1,7 @@
 #include "Wall.h"
 #include <iostream>
 #include "DummyGuard.h"
+#include "Player.h"
 ////////////////////////////////////////////////////////
 // c'tor wall
 ////////////////////////////////////////////////////////
@@ -10,60 +11,40 @@ Wall::Wall(sf::Vector2f position, sf::Vector2f size)
 	
 
 }
-//////////////////////////////////////////////////////////
-//  draw object 
-//////////////////////////////////////////////////////////
 
-//@override java style..
-void Wall::draw(sf::RenderWindow & w)
+bool Wall::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
 {
-	w.draw(m_sprite);
-}
-////////////////////////////////////////////////////////
-// setting position by getting new position
-////////////////////////////////////////////////////////
-
-//@override
-void Wall::setPoisition(sf::Vector2f & position)
-{
-	m_position = position;
-}
-////////////////////////////////////////////////////////////
-//  getting position of wall
-////////////////////////////////////////////////////////////
-sf::Vector2f Wall::getPosition() const
-{
-	return m_position;
+	return false;
 }
 
-void Wall::collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Wall::collide(Object & otherObject, int index)
 {
 }
 
-void Wall::collide(Player & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Wall::collide(Player & otherObject, int index)
+{
+	otherObject.setMoving(false);
+}
+
+void Wall::collide(SmartGuard & otherObject, int index)
 {
 }
 
-void Wall::collide(SmartGuard & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
-{
-}
-
-void Wall::collide(DummyGuard & otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Wall::collide(DummyGuard & otherobject, int index)
 {
 	otherobject.changeDirection();
-	std::cout << "change";
+	
 }
 
-void Wall::collide(Wall & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable,
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Wall::collide(Wall & otherObject, int index)
 {
 }
 
-void Wall::collide(Rock & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, 
-	const std::vector<std::unique_ptr<StaticObject>>& statics)
+void Wall::collide(Rock & otherObject, int index)
+{
+
+}
+
+void Wall::collide(Bomb & bomb, int index)
 {
 }

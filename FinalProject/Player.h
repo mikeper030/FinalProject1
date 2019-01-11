@@ -7,19 +7,32 @@ class Player :public DynamicObject
 {
 public:
 	Player(sf::Vector2f  position, sf::Vector2f size);
-	void setPoisition(sf::Vector2f & position);
-	void draw(sf::RenderWindow & w)override;
+	static std::vector<sf::IntRect>& getSheet();
+	
+	static sf::Vector2f& getPosition();
+	
 	void move(sf::Vector2f& pos, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
 	
-	sf::Vector2f getPosition() const override;
+	
+	void checkAupdate(sf::Vector2f & pos, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2) override;
+	
+	 bool collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2) override;
+
 
 	 void setDeltaAspeed(float, float);
+	 void setMoving(bool move);
+	void collide(Object & otherObject , int index) override;
+	 void collide(Player& otherObject, int index) override;
+	 void collide(SmartGuard& otherObject, int index) override;
+	 void collide(DummyGuard& otherobject, int index)override;
+	 void collide(Wall& otherObject, int index)override;
+	  void collide(Rock& otherObject, int index) override;
+	  void collide(Bomb& bomb, int index) override;
 
-	void collide(Object & otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
-	 void collide(Player& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
-	 void collide(SmartGuard& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
-	 void collide(DummyGuard& otherobject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics )override;
-	 void collide(Wall& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& staticss)override;
-	  void collide(Rock& otherObject, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics) override;
+private:
+	bool moving;
+	static sf::Vector2f m_pos;
+	static std::vector<sf::IntRect> sheet;
+	
 };
 

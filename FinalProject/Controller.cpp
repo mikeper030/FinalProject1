@@ -1,9 +1,11 @@
 #include "Controller.h"
+#include "Bomb.h"
 
 
-
-Controller::Controller()
+Controller::Controller()	
+ 
 {
+
 }
 
 void Controller::startGame(std::string  name_file)
@@ -13,7 +15,10 @@ void Controller::startGame(std::string  name_file)
 	
 	sf::Clock timer;
 	const sf::Time time = sf::seconds(2.f);
-	bool isPlaying = false;
+	
+	Bomb::loadSheet();
+	//change this to enable main menu
+	bool isPlaying = true;
 
 	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
 	m_screen_height = sf::VideoMode::getDesktopMode().height*0.7;
@@ -38,13 +43,9 @@ void Controller::startGame(std::string  name_file)
 	GameBoardManager manager(file);
 	manager.readSizeOfBoard();
 	manager.createBoardByFile(m_screen_height,m_screen_width);
-	float width = 216 / 12;
-	float height = 24;
-	sf::IntRect rectSourceSprite1(0, 0, width, height);
-	sf::IntRect rectSourceSprite2(width * 3, 0, width, height);
-	sf::IntRect rectSourceSprite3(width * 6, 0, width, height);
-	sf::IntRect rectSourceSprite4(width * 9, 0, width, height);
-
+	
+	
+	
 	sf::Texture texture;
 	texture.loadFromFile("inter.png");
 	sf::RectangleShape rectInter(sf::Vector2f(m_screen_width, m_screen_height));
@@ -90,51 +91,15 @@ void Controller::startGame(std::string  name_file)
 		}
 		if (isPlaying)
 		{
-			float deltaTime = clock.restart().asSeconds();
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			{
-
-				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				manager.updateRobot({ playerSpeed * deltaTime ,0.f }, rectSourceSprite2, 3, 5, width);
-				std::cout << "right" << std::endl;
-				//clock.restart();
-				
-				//}
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			{
-				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				manager.updateRobot({ 0.f,playerSpeed * deltaTime }, rectSourceSprite3, 6, 8, width);
-				std::cout << "down" << std::endl;
-				//clock.restart();
-				
-				//}
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			{
-				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				manager.updateRobot({ -playerSpeed * deltaTime ,0.f }, rectSourceSprite4, 9, 11, width);
-				std::cout << "left" << std::endl;
-				//clock.restart();
-				
-				//}
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			{
-				//if (clock.getElapsedTime().asSeconds() > 1.0f) {
-				manager.updateRobot({ 0.f,-playerSpeed * deltaTime }, rectSourceSprite1, 0, 2, width);
-				std::cout << "up" << std::endl;
-				//clock.restart();
 			
-				//	}
-
-			}
+			manager.moveGuards(sf::Vector2f{ 0,0 }, 0.005, guardSpeed, manager.getDynamicObjects(), manager.getStaticObjects());
 			
-			//if (timer.getElapsedTime() > time) 
-			//{
-				manager.moveGuards(sf::Vector2f{ 0,0 }, 0.006, guardSpeed, manager.getDynamicObjects(),manager.getStaticObjects());
-				timer.restart();
-			//}
+			float deltaTime =(float) 0.005; //clock.restart().asSeconds();
+
+			manager.updateRobot(18,playerSpeed,deltaTime);
+			
+			
+			
 		}
 
 		// Clear the window
@@ -142,7 +107,7 @@ void Controller::startGame(std::string  name_file)
 
 		if (isPlaying)
 		{
-			// Draw the paddles and the ball
+		    
 			window.draw(winRec);
 			window.draw(boardRec);
 			manager.draw(window);

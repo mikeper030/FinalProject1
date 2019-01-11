@@ -1,5 +1,5 @@
 #include "DynamicObject.h"
-
+#include "StaticObject.h"
 
 
 
@@ -8,6 +8,7 @@ DynamicObject::DynamicObject(std::string texture, sf::Vector2f position, sf::Vec
 	:Object(texture,position,size)
 {
 }
+
 
 
 
