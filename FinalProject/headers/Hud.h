@@ -5,9 +5,11 @@ class Hud
 {
 public:
 	Hud(int score, int lives, int level_bombs, int level_no, int s_width, int s_height, Timer&t);
+	void setAlert(bool);
 	void draw(sf::RenderWindow&w);
 	void setScore(int score);
 	void setLevelNO(int num);
+	bool lowOnTime() const;
 	void setLife(int lives);
 	void setTimer(Timer & t);
 	void setBombs(int bombs);

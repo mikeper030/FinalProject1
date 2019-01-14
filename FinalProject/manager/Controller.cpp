@@ -4,8 +4,11 @@
 #include "headers/Bomb.h"
 
 
-
+//static initializers======================
 bool Controller::is_level_finished = false;
+bool Controller::should_restart = false;
+//=========================================
+
 Controller::Controller(){}
 
 void Controller::startGame(std::string  name_file)
@@ -110,10 +113,22 @@ void Controller::startGame(std::string  name_file)
 				{
 					is_level_finished = false;
 					manager.goToNextLevel();
+					hud.setAlert(false);
 				}
 				t.secondPassed();
-				if (t.isFinished())
+				if (hud.lowOnTime())
 				{
+					hud.setAlert(true);
+				}
+				if (t.isFinished()||should_restart)
+				{
+					if (should_restart)
+					{
+						Player::dropLife();
+						should_restart = false;
+					}
+					
+					hud.setAlert(false);
 					manager.restartLevel();
 					t.setTime(manager.getCurrentTimeLimit());
 				}
@@ -136,6 +151,7 @@ void Controller::startGame(std::string  name_file)
 			manager.draw(window);
 		    hud.setScore(manager.getScore());
 		    hud.setBombs(manager.getLevelBombsMax());
+			hud.setLevelNO(manager.getCurrentLevel());
 		    hud.setLife(Player::getLives());
 		    hud.draw(window);
 		}
@@ -213,6 +229,14 @@ bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::Rectangl
 bool Controller::levelFinsihed()
 {
 	return is_level_finished;
+}
+void Controller::setRestart(bool b)
+{
+	should_restart = b;
+}
+bool Controller::restart()
+{
+	return should_restart;
 }
 
 void Controller::setLevelFinished(bool b)

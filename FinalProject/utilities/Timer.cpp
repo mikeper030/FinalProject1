@@ -8,11 +8,16 @@ Timer::Timer(int seconds)
 
 void Timer::setTime(int seconds)
 {
+	
 	m_time = seconds;
 }
 void Timer::secondPassed()
 {
 	m_time--;
+}
+int Timer::getElapsedTimeAsSeconds() const
+{
+	return m_time;
 }
 std::string & Timer::getTimeFormatted() 
 {

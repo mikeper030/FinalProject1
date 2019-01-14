@@ -10,7 +10,7 @@ float GameBoardManager::m_guards_num = 0;
 //========================================================================
 
 GameBoardManager::GameBoardManager(std::ifstream & file)
-	:m_file(file)
+	:m_file(file),m_curr_level(1)
 {
 }
 //////////////////////////////////////////////////////////
@@ -179,13 +179,19 @@ void GameBoardManager::updateRobot(int width,float playerSpeed,float deltaTime)
 	else
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{
-		if (m_bombs_limit > 0)
+		if (m_bombs_counter > 0)
 		{
 			Bomb b(Player::getPosition(), sf::Vector2f(m_tile_width, m_tile_height));
 			m_bombs.push_back(b);
 			m_bombs_counter--;
 		}
 	}
+	else
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			
+			Controller::setRestart(true);
+		}
 }
 
 std::vector<Bomb>& GameBoardManager::getBombs()
@@ -260,7 +266,7 @@ void GameBoardManager::updateRobot(sf::Vector2f  new_position, sf::IntRect &rect
 void GameBoardManager::restartLevel() 
 {
 	m_bombs_counter = m_bombs_limit;
-	
+
 	for (auto& a : m_static)
 	{
 		a->setStartPosition();
@@ -272,10 +278,15 @@ void GameBoardManager::restartLevel()
 		a->setVisible(true);
 	}
 }
-
+int  GameBoardManager::getCurrentLevel() const
+{
+	return m_curr_level;
+}
 void GameBoardManager::goToNextLevel()
 {
+	m_curr_level++;
 	readSizeOfBoard();
 	createBoardByFile();
+	
 }
 

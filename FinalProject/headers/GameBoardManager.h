@@ -14,7 +14,7 @@
 #include "Wall.h"
 #include "Door.h"
 #include "Bomb.h"
-
+#include "Controller.h"
 
 class GameBoardManager
 {
@@ -37,13 +37,14 @@ public:
 	int getLevelBombsMax() const;
 	void draw(sf::RenderWindow & w);
 	void updateRobot(sf::Vector2f  new_position, sf::IntRect &rectSourceSprite, int first, int lest, float width, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2);
-	static void restartLevel();
+	 void restartLevel();
+	int getCurrentLevel() const;
      void goToNextLevel();
 	
 private:
 	float m_rows, m_cols, m_tile_width,m_tile_height;
 	
-	int  m_time_level;
+	int  m_time_level,m_curr_level;
 	std::ifstream & m_file;
 	static float m_bombs_limit, m_bombs_counter,m_score,m_guards_num;
 	std::vector<std::unique_ptr<Object>> m_all;

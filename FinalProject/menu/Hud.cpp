@@ -43,7 +43,12 @@ Hud::Hud(int score, int lives, int level_bombs, int level_no, int s_width, int s
 	levelNO.setPosition(s_width*0.6 - levelNO.getLocalBounds().width / 2, s_height / 50);
 	bombsLeft.setPosition(s_width*0.8 - bombsLeft.getLocalBounds().width / 2, s_height / 50);
 }
+void Hud::setAlert(bool b)
+{
+	if (b)timer_text.setFillColor(sf::Color::Red);
+	else timer_text.setFillColor(sf::Color::White);
 
+}
 void Hud::draw(sf::RenderWindow & w)
 {
 	w.draw(timer_text);
@@ -52,6 +57,7 @@ void Hud::draw(sf::RenderWindow & w)
 	w.draw(levelNO);
 	w.draw(points);
 }
+
 
 void Hud::setScore(int score)
 {
@@ -68,7 +74,10 @@ void Hud::setLevelNO(int num)
 	std::string f(o.str());
 	levelNO.setString(f);
 }
-
+bool Hud::lowOnTime() const
+{
+	return m_timer.getElapsedTimeAsSeconds() < 20;
+}
 void Hud::setLife(int lives)
 {
 	std::ostringstream o;

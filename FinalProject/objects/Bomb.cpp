@@ -128,7 +128,7 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 
 void Bomb::collide(Player & player, int index)
 {
-
+	player.dropLife();
 }
 
 void Bomb::collide(Object & object, int index)

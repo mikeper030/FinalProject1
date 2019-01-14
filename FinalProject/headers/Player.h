@@ -19,8 +19,8 @@ public:
 	void checkAupdate(sf::Vector2f & pos, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2) override;
 	
 	 bool collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2) override;
-
-	 void dropLife();
+	 
+	 static void dropLife();
 	 static int getLives() ;
 	 void setDeltaAspeed(float, float);
 	 void setMoving(bool move);
