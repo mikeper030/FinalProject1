@@ -24,19 +24,28 @@ public:
 
 	GameBoardManager(std::ifstream & file);
 	void readSizeOfBoard();
-	void createBoardByFile(int,int);
+   void createBoardByFile();
 	void moveGuards(sf::Vector2f pos, float delta, float speed, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics);
 	static std::vector<std::unique_ptr<StaticObject>> &getStaticObjects() ;
 	static std::vector<std::unique_ptr<DynamicObject>> &getDynamicObjects();
+	static void addScore();
+	static int getScore();
+	
+	int &getCurrentTimeLimit();
 	void updateRobot(int width, float playerSpeed, float deltaTime);
 	std::vector<Bomb>& getBombs();
-
+	int getLevelBombsMax() const;
 	void draw(sf::RenderWindow & w);
 	void updateRobot(sf::Vector2f  new_position, sf::IntRect &rectSourceSprite, int first, int lest, float width, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2);
-	void updateBombs(sf::RenderWindow & w);
+	static void restartLevel();
+     void goToNextLevel();
+	
 private:
-	float m_rows, m_cols, m_bombs_limit, m_time_level, m_size_width,m_size_height;
+	float m_rows, m_cols, m_tile_width,m_tile_height;
+	
+	int  m_time_level;
 	std::ifstream & m_file;
+	static float m_bombs_limit, m_bombs_counter,m_score,m_guards_num;
 	std::vector<std::unique_ptr<Object>> m_all;
 	static std::vector<std::unique_ptr<DynamicObject>> m_active;
 	static std::vector<std::unique_ptr<StaticObject>> m_static;

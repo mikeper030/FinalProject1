@@ -15,133 +15,142 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Controller.h">
+    <ClInclude Include="headers\Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameBoardManager.h">
+    <ClInclude Include="headers\Door.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wall.h">
+    <ClInclude Include="headers\Hud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="headers\Rock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StaticObject.h">
+    <ClInclude Include="headers\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicObject.h">
+    <ClInclude Include="headers\Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="headers\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Guard.h">
+    <ClInclude Include="headers\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SmartGuard.h">
+    <ClInclude Include="headers\Bomb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bomb.h">
+    <ClInclude Include="headers\DynamicObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Rock.h">
+    <ClInclude Include="headers\DummyGuard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Door.h">
+    <ClInclude Include="headers\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DummyGuard.h">
+    <ClInclude Include="headers\Guard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="headers\SmartGuard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\GameBoardManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\StaticObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Controller.cpp">
+    <ClCompile Include="objects\Bomb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameBoardManager.cpp">
+    <ClCompile Include="objects\SmartGuard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Wall.cpp">
+    <ClCompile Include="objects\Door.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
+    <ClCompile Include="objects\DummyGuard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StaticObject.cpp">
+    <ClCompile Include="objects\Guard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="objects\Rock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicObject.cpp">
+    <ClCompile Include="objects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="objects\Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Guard.cpp">
+    <ClCompile Include="base\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SmartGuard.cpp">
+    <ClCompile Include="base\StaticObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bomb.cpp">
+    <ClCompile Include="base\DynamicObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rock.cpp">
+    <ClCompile Include="menu\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Door.cpp">
+    <ClCompile Include="utilities\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DummyGuard.cpp">
+    <ClCompile Include="manager\GameBoardManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
+    <ClCompile Include="manager\Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="manager\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\Hud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Bomberman.png">
+    <Image Include="res\Bomberman.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="door.png">
+    <Image Include="res\door.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="floor.png">
+    <Image Include="res\explosion_sheet.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="guard.png">
+    <Image Include="res\floor.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="inter.png">
+    <Image Include="res\guard.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="robot.png">
+    <Image Include="res\inter.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="rock.png">
+    <Image Include="res\music.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="wall.png">
+    <Image Include="res\robot.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="music.png">
+    <Image Include="res\rock.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\Desktop\OOP1\bomb.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="explosion_sheet.png">
+    <Image Include="res\wall.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="sansation.ttf" />
-    <Font Include="1stenterprisesexpand.ttf" />
+    <Font Include="res\1stenterprisesexpand.ttf" />
+    <Font Include="res\sansation.ttf" />
   </ItemGroup>
 </Project>

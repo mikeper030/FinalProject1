@@ -69,7 +69,22 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir);$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir);$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir);$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir);$(SourcePath)</SourcePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -115,54 +130,57 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Bomb.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="Door.h" />
-    <ClInclude Include="DummyGuard.h" />
-    <ClInclude Include="DynamicObject.h" />
-    <ClInclude Include="GameBoardManager.h" />
-    <ClInclude Include="Guard.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Rock.h" />
-    <ClInclude Include="SmartGuard.h" />
-    <ClInclude Include="StaticObject.h" />
-    <ClInclude Include="Wall.h" />
+    <ClInclude Include="headers\Bomb.h" />
+    <ClInclude Include="headers\Controller.h" />
+    <ClInclude Include="headers\Door.h" />
+    <ClInclude Include="headers\DummyGuard.h" />
+    <ClInclude Include="headers\DynamicObject.h" />
+    <ClInclude Include="headers\GameBoardManager.h" />
+    <ClInclude Include="headers\Guard.h" />
+    <ClInclude Include="headers\Hud.h" />
+    <ClInclude Include="headers\Menu.h" />
+    <ClInclude Include="headers\Object.h" />
+    <ClInclude Include="headers\Player.h" />
+    <ClInclude Include="headers\Rock.h" />
+    <ClInclude Include="headers\SmartGuard.h" />
+    <ClInclude Include="headers\StaticObject.h" />
+    <ClInclude Include="headers\Timer.h" />
+    <ClInclude Include="headers\Wall.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="Door.cpp" />
-    <ClCompile Include="DummyGuard.cpp" />
-    <ClCompile Include="DynamicObject.cpp" />
-    <ClCompile Include="GameBoardManager.cpp" />
-    <ClCompile Include="Guard.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Rock.cpp" />
-    <ClCompile Include="SmartGuard.cpp" />
-    <ClCompile Include="StaticObject.cpp" />
-    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="menu\Hud.cpp" />
+    <ClCompile Include="objects\Bomb.cpp" />
+    <ClCompile Include="manager\Controller.cpp" />
+    <ClCompile Include="objects\Door.cpp" />
+    <ClCompile Include="objects\DummyGuard.cpp" />
+    <ClCompile Include="base\DynamicObject.cpp" />
+    <ClCompile Include="manager\GameBoardManager.cpp" />
+    <ClCompile Include="objects\Guard.cpp" />
+    <ClCompile Include="manager\Main.cpp" />
+    <ClCompile Include="menu\Menu.cpp" />
+    <ClCompile Include="base\Object.cpp" />
+    <ClCompile Include="objects\Player.cpp" />
+    <ClCompile Include="objects\Rock.cpp" />
+    <ClCompile Include="objects\SmartGuard.cpp" />
+    <ClCompile Include="base\StaticObject.cpp" />
+    <ClCompile Include="utilities\Timer.cpp" />
+    <ClCompile Include="objects\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\OOP1\bomb.png" />
-    <Image Include="Bomberman.png" />
-    <Image Include="door.png" />
-    <Image Include="explosion_sheet.png" />
-    <Image Include="floor.png" />
-    <Image Include="guard.png" />
-    <Image Include="inter.png" />
-    <Image Include="music.png" />
-    <Image Include="robot.png" />
-    <Image Include="rock.png" />
-    <Image Include="wall.png" />
+    <Image Include="res\Bomberman.png" />
+    <Image Include="res\door.png" />
+    <Image Include="res\explosion_sheet.png" />
+    <Image Include="res\floor.png" />
+    <Image Include="res\guard.png" />
+    <Image Include="res\inter.png" />
+    <Image Include="res\music.png" />
+    <Image Include="res\robot.png" />
+    <Image Include="res\rock.png" />
+    <Image Include="res\wall.png" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="1stenterprisesexpand.ttf" />
-    <Font Include="sansation.ttf" />
+    <Font Include="res\1stenterprisesexpand.ttf" />
+    <Font Include="res\sansation.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

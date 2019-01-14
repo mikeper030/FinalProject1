@@ -1,5 +1,5 @@
-#include "DynamicObject.h"
-#include "StaticObject.h"
+#include "headers/DynamicObject.h"
+#include "headers/StaticObject.h"
 
 
 

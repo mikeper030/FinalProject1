@@ -1,21 +1,21 @@
-#include "Player.h"
+#include "headers/Player.h"
 #include <iostream>
-
 
 //static initialization================
 std::vector<sf::IntRect> Player::sheet;
 sf::Vector2f Player::m_pos; 
+int Player::m_lives = 4;
 //=====================================
 
 ////////////////////////////////////////////////////////
 // c'tor Player
 ////////////////////////////////////////////////////////
 Player::Player(sf::Vector2f  position, sf::Vector2f size)
-	:DynamicObject("Bomberman.png",position,size)
+	:DynamicObject("res/Bomberman.png",position,size)
 {
-	m_texture.loadFromFile("Bomberman.png");
+	m_texture.loadFromFile("res/Bomberman.png");
 	m_sprite.setTexture(m_texture);
-	
+	m_start_pos = position;
 	float sprite_width = 18;
 	float sprite_height = 24;
 	sf::IntRect rectSourceSprite1(0, 0, sprite_width, sprite_height);
@@ -31,7 +31,6 @@ Player::Player(sf::Vector2f  position, sf::Vector2f size)
 	
 	float width = 216 / 12;
 	float height = 24;
-	
 	
 	m_sprite.setTextureRect(rectSourceSprite3);
 	m_sprite.setPosition(sf::Vector2f(position));
@@ -56,7 +55,7 @@ std::vector<sf::IntRect>& Player::getSheet()
 //@override
 bool Player::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
 {
-	
+	int index = 0;
 	for (const auto& other : objects1)
 	{
 		// Don't collide with ourselves and bombs
@@ -68,7 +67,7 @@ bool Player::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<Dynamic
 		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
 		{
 
-			//other->collide(*this, objects1, objects2);
+			other->collide(*this, index );
 			moving = false;
 			return true;
 		}
@@ -84,7 +83,7 @@ bool Player::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<Dynamic
 
 		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
 		{
-			//other->collide(*this, objects1, objects2);
+			other->collide(*this, index);
 			
 			return true;
 		}
@@ -94,6 +93,42 @@ bool Player::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<Dynamic
 	return false;
 
 }
+void Player::dropLife()
+{
+	switch (m_lives)
+	{
+	case 4:
+		m_lives = 3;
+		m_pos = m_start_pos;
+		m_sprite.move(m_start_pos);
+		GameBoardManager::restartLevel();
+		break;
+	case 3:
+		m_lives = 2;
+		m_pos = m_start_pos;
+		m_sprite.move(m_start_pos);
+		GameBoardManager::restartLevel();
+		break;
+	case 2:
+		m_lives = 1;
+		m_pos = m_start_pos;
+		m_sprite.move(m_start_pos);
+		GameBoardManager::restartLevel();
+		break;
+	case 1:
+		m_lives = 0;
+		m_pos = m_start_pos;
+		m_sprite.move(m_start_pos);
+		GameBoardManager::restartLevel();
+		break;
+	}
+	
+}
+int Player::getLives()
+{
+	return m_lives;
+}
+
 //@override
 void Player::checkAupdate(sf::Vector2f & pos, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
 {
@@ -107,7 +142,7 @@ sf::Vector2f& Player::getPosition()
 //  move active object
 ////////////////////////////////////////////////////////////
 //@override
-void Player::move(sf::Vector2f& pos, const std::vector<std::unique_ptr<DynamicObject>>& movable,
+void Player::move(sf::Vector2f& player_pos,sf::Vector2f& pos, const std::vector<std::unique_ptr<DynamicObject>>& movable,
 	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
 	m_sprite.move(pos);
@@ -147,6 +182,7 @@ void Player::collide(Object & otherObject, int index)
 
 void Player::collide(Player & otherObject, int index)
 {
+
 }
 
 void Player::collide(SmartGuard & otherObject, int index)
@@ -155,6 +191,7 @@ void Player::collide(SmartGuard & otherObject, int index)
 
 void Player::collide(DummyGuard & otherobject, int index)
 {
+	dropLife();
 }
 
 void Player::collide(Wall & otherObject, int index)

@@ -1,19 +1,20 @@
-#include "Bomb.h"
-#include "StaticObject.h"
+#include "headers/Bomb.h"
+#include "headers/StaticObject.h"
 #include <iostream>
-#include "Rock.h"
-#include "GameBoardManager.h"
+#include "headers/Rock.h"
+#include "headers/GameBoardManager.h"
+
 //static initializiation===============
 std::vector<sf::IntRect> Bomb::m_sheet;
 //=====================================
 
 
 Bomb::Bomb(sf::Vector2f position, sf::Vector2f size)
-	:StaticObject("bomb.png", position, size) 
+	:StaticObject("res/bomb.png", position, size) 
 {
 	m_texture.setSmooth(true);
-	m_texture.loadFromFile("bomb.png");
-	explosion.loadFromFile("explosion_sheet.png");
+	m_texture.loadFromFile("res/bomb.png");
+	explosion.loadFromFile("res/explosion_sheet.png");
 	
 }
 
@@ -24,7 +25,7 @@ void Bomb::draw(sf::RenderWindow&w)
 	if (!is_blowing)
 	{
 		
-		if (m_timer.getElapsedTime().asSeconds() < 3)
+		if (m_timer.getElapsedTime().asSeconds() < 4)
 		{
 			m_sprite.setTexture(m_texture);
 			w.draw(m_sprite);
@@ -32,8 +33,6 @@ void Bomb::draw(sf::RenderWindow&w)
 		else
 		{
 			is_blowing = true;
-		
-			
 		}
 	}
 	else
@@ -48,10 +47,8 @@ void Bomb::draw(sf::RenderWindow&w)
 			{
 				current_pos.x = current_pos.x - 50;
 				current_pos.y = current_pos.y - 50;
-				collides(m_sprite, GameBoardManager::getDynamicObjects(), GameBoardManager::getStaticObjects());
-
 			}
-			
+			collides(m_sprite, GameBoardManager::getDynamicObjects(), GameBoardManager::getStaticObjects());
 			m_sprite.setPosition(current_pos);
 			sprite_index++;
 			m_timer.restart();
@@ -104,6 +101,7 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		
 		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
 		{
+			
 			other->collide(*this, i);
 			return true;
 		}
@@ -117,7 +115,8 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		{
 			continue;
 		}
-		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
+		//do not consume collisions if wall is in the blast //fixes bugs! 
+		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()) && typeid(*other) != typeid(Wall))
 		{
 			other->collide(*this, i);
 			return true;

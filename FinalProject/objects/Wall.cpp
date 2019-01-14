@@ -1,12 +1,12 @@
-#include "Wall.h"
+#include "headers/Wall.h"
 #include <iostream>
-#include "DummyGuard.h"
-#include "Player.h"
+#include "headers/DummyGuard.h"
+#include "headers/Player.h"
 ////////////////////////////////////////////////////////
 // c'tor wall
 ////////////////////////////////////////////////////////
 Wall::Wall(sf::Vector2f position, sf::Vector2f size)
-	:StaticObject("wall.png",position,size)
+	:StaticObject("res/wall.png",position,size)
 {
 	
 
@@ -30,9 +30,9 @@ void Wall::collide(SmartGuard & otherObject, int index)
 {
 }
 
-void Wall::collide(DummyGuard & otherobject, int index)
+void Wall::collide(DummyGuard & guard, int index)
 {
-	otherobject.changeDirection();
+	guard.changeDirection();
 	
 }
 
@@ -47,4 +47,5 @@ void Wall::collide(Rock & otherObject, int index)
 
 void Wall::collide(Bomb & bomb, int index)
 {
+	
 }

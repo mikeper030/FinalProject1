@@ -1,12 +1,12 @@
-#include "Rock.h"
+#include "headers/Rock.h"
 #include <iostream>
-#include "DummyGuard.h"
-#include "GameBoardManager.h"
+#include "headers/DummyGuard.h"
+#include "headers/GameBoardManager.h"
 ////////////////////////////////////////////////////////
 // c'tor rock
 ////////////////////////////////////////////////////////
 Rock::Rock(sf::Vector2f position, sf::Vector2f size)
-	:StaticObject("rock.png",position,size)
+	:StaticObject("res/rock.png",position,size)
 {
 }
 
@@ -50,6 +50,6 @@ void Rock::collide(Rock & otherObject, int index)
 
 void Rock::collide(Bomb & bomb, int index)
 {
-	std::cout << "deleted rock";
-	GameBoardManager::getStaticObjects().erase(GameBoardManager::getStaticObjects().begin()+index);
+
+	GameBoardManager::getStaticObjects().at(index)->setVisible(false);
 }

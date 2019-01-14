@@ -1,11 +1,11 @@
-#include "DummyGuard.h"
-#include "GameBoardManager.h"
+#include "headers/DummyGuard.h"
+#include "headers/GameBoardManager.h"
 
 ////////////////////////////////////////////////////////
 // c'tor guard
 ////////////////////////////////////////////////////////
 DummyGuard::DummyGuard(sf::Vector2f  position, sf::Vector2f size)
-	:Guard("guard.png",position,size)
+	:Guard("res/guard.png",position,size)
 {
 	int range = 4;
 	
@@ -13,6 +13,7 @@ DummyGuard::DummyGuard(sf::Vector2f  position, sf::Vector2f size)
 	m_direction = rand() % range + 1;
 	m_prev_direction = m_direction;
 	setPoisition(position);
+	m_start_pos = position;
 }
 
 void DummyGuard::changeDirection()
@@ -67,10 +68,12 @@ void DummyGuard::checkAupdate(sf::Vector2f & pos, const std::vector<std::unique_
 	if (!collides(m_sprite, objects1, objects2))
 	{
 		m_sprite.move(pos);
+		m_position = (pos);
 	}
 	else
 	{
 		m_sprite.move(-pos);
+		m_position = (-pos);
 	}
 }
 
@@ -79,7 +82,7 @@ void DummyGuard::checkAupdate(sf::Vector2f & pos, const std::vector<std::unique_
 ////////////////////////////////////////////////////////////
 //  move active object
 ////////////////////////////////////////////////////////////
-void DummyGuard::move(sf::Vector2f& pos,const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
+void DummyGuard::move(sf::Vector2f&,sf::Vector2f& pos,const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
 {		
 	//std::cout << m_direction;
 	sf::Vector2f v;
@@ -124,8 +127,10 @@ void DummyGuard::collide(Object & otherObject, int index)
 {
 }
 
-void DummyGuard::collide(Player & otherObject, int index)
+void DummyGuard::collide(Player & player, int index)
 {
+	player.dropLife();
+
 }
 
 void DummyGuard::collide(SmartGuard & otherObject, int index)
@@ -148,6 +153,10 @@ void DummyGuard::collide(Rock & otherObject, int index)
 
 void DummyGuard::collide(Bomb & bomb, int index)
 {
+	//collision of dummy guard and bomb first make guard invisible
+	GameBoardManager::getDynamicObjects().erase(GameBoardManager::getDynamicObjects().begin() + index);
+	//now add score
+	GameBoardManager::addScore();
 }
 
 

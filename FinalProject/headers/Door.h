@@ -1,6 +1,7 @@
 #pragma once
 #include "StaticObject.h"
 #include "DynamicObject.h"
+#include "GameBoardManager.h"
 #include <iostream>
 
 

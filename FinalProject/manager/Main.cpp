@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
-#include "Controller.h"
+#include "headers/Controller.h"
 #ifdef _DEBUG
 #pragma comment ( lib , "sfml-main-d.lib" )
 #pragma comment ( lib , "sfml-system-d.lib" )
@@ -21,7 +21,7 @@
 int main()
 {
 	Controller c;
-	c.startGame("board.txt");
+	c.startGame("res/board.txt");
 
 
 	return 0;

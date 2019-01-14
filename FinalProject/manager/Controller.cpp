@@ -1,17 +1,17 @@
-#include "Controller.h"
-#include "Bomb.h"
+
+#include "headers/Controller.h"
+#include "headers/Hud.h"
+#include "headers/Bomb.h"
 
 
-Controller::Controller()	
- 
-{
 
-}
+bool Controller::is_level_finished = false;
+Controller::Controller(){}
 
 void Controller::startGame(std::string  name_file)
 {
-	const float playerSpeed = 300.f;
-	const float guardSpeed = 100.f;
+	const float playerSpeed = 380.f;
+	const float guardSpeed = 150.f;
 	
 	sf::Clock timer;
 	const sf::Time time = sf::seconds(2.f);
@@ -21,19 +21,20 @@ void Controller::startGame(std::string  name_file)
 	bool isPlaying = true;
 
 	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
-	m_screen_height = sf::VideoMode::getDesktopMode().height*0.7;
+	m_screen_height = sf::VideoMode::getDesktopMode().height*0.75;
 	
 	sf::RenderWindow window(sf::VideoMode(m_screen_width, m_screen_height, 32), "Bomberman",
-	sf::Style::Titlebar | sf::Style::Close);;
+	sf::Style::Titlebar | sf::Style::Close);
+	//window.setIcon()
 	sf::RectangleShape winRec(sf::Vector2f(m_screen_width, m_screen_height));
 	winRec.setFillColor(sf::Color::Color(149, 176, 168));
 	winRec.setPosition(0, 0);
 
-	sf::RectangleShape boardRec(sf::Vector2f(m_screen_width, m_screen_height));
+	sf::RectangleShape boardRec(sf::Vector2f(m_screen_width, m_screen_height*0.9));
 	boardRec.setFillColor(sf::Color::Color(255, 173, 43));
-	boardRec.setPosition(0, 100);
+	boardRec.setPosition(0, m_screen_height*0.15);
 
-	sf::Clock clock;
+	
 
 
 	std::ifstream file(name_file);
@@ -42,17 +43,19 @@ void Controller::startGame(std::string  name_file)
 	
 	GameBoardManager manager(file);
 	manager.readSizeOfBoard();
-	manager.createBoardByFile(m_screen_height,m_screen_width);
-	
+	manager.createBoardByFile();
+	//in game head up display
+	Timer t(manager.getCurrentTimeLimit());
+	Hud hud(0, 4, manager.getLevelBombsMax(),1 , m_screen_width, m_screen_height,t);
 	
 	
 	sf::Texture texture;
-	texture.loadFromFile("inter.png");
+	texture.loadFromFile("res/inter.png");
 	sf::RectangleShape rectInter(sf::Vector2f(m_screen_width, m_screen_height));
 	rectInter.setTexture(&texture);
 	rectInter.setPosition(0, 0);
 	sf::Texture soundTexture;
-	soundTexture.loadFromFile("music.png");
+	soundTexture.loadFromFile("res/music.png");
 	sf::Sprite soundIcon(soundTexture);
 	soundIcon.setPosition(20, 20);
 
@@ -60,13 +63,13 @@ void Controller::startGame(std::string  name_file)
 	sf::RectangleShape newGame_botton(sf::Vector2f(m_screen_width/10, m_screen_height/10));
 	sf::RectangleShape exitGame_botton(sf::Vector2f(m_screen_width / 10, m_screen_height / 10));
 	sf::Font font;
-	font.loadFromFile("1stenterprisesexpand.ttf");
+	font.loadFromFile("res/1stenterprisesexpand.ttf");
 	sf::Text menu_newGame;
 	sf::Text menu_exitGame;
 
 
-
-	clock.restart();
+	sf::Clock clock;
+	
 	
 	while (window.isOpen())
 	{
@@ -88,9 +91,12 @@ void Controller::startGame(std::string  name_file)
 		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
 		{
 			isPlaying = true;
+			
+			
 		}
 		if (isPlaying)
 		{
+			//clock.restart();
 			
 			manager.moveGuards(sf::Vector2f{ 0,0 }, 0.005, guardSpeed, manager.getDynamicObjects(), manager.getStaticObjects());
 			
@@ -98,7 +104,24 @@ void Controller::startGame(std::string  name_file)
 
 			manager.updateRobot(18,playerSpeed,deltaTime);
 			
+			if (clock.getElapsedTime().asSeconds() > 1)
+			{
+				if (is_level_finished)
+				{
+					is_level_finished = false;
+					manager.goToNextLevel();
+				}
+				t.secondPassed();
+				if (t.isFinished())
+				{
+					manager.restartLevel();
+					t.setTime(manager.getCurrentTimeLimit());
+				}
+
+				clock.restart();
+			}
 			
+			hud.updateTime();
 			
 		}
 
@@ -111,6 +134,10 @@ void Controller::startGame(std::string  name_file)
 			window.draw(winRec);
 			window.draw(boardRec);
 			manager.draw(window);
+		    hud.setScore(manager.getScore());
+		    hud.setBombs(manager.getLevelBombsMax());
+		    hud.setLife(Player::getLives());
+		    hud.draw(window);
 		}
 		else
 		{
@@ -181,6 +208,16 @@ bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::Rectangl
 		}
 	}
 	return false;
+}
+
+bool Controller::levelFinsihed()
+{
+	return is_level_finished;
+}
+
+void Controller::setLevelFinished(bool b)
+{
+	is_level_finished = b;
 }
 
 
