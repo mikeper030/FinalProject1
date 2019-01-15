@@ -25,7 +25,6 @@ void GameBoardManager::readSizeOfBoard()
 	iss.str(line);
 	int rows, cols, time, bombs;
 	iss >> rows >> cols >> time >> bombs;
-	//std::cout << rows << " " << cols << " " << time << " " << bomb << std::endl;
 	m_rows = rows;
 	m_cols = cols;
 	m_bombs_limit = bombs;
@@ -110,7 +109,7 @@ void GameBoardManager::moveGuards(sf::Vector2f pos, float delta,float speed, con
 				}
 			}
 		}
-		//smart Guard move he get the location of robot
+		//smart Guard move must get the player location first
 		else {
 			if (name.compare("class SmartGuard") == 0)
 			{

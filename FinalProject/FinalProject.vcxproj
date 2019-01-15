@@ -138,7 +138,7 @@
     <ClInclude Include="headers\GameBoardManager.h" />
     <ClInclude Include="headers\Guard.h" />
     <ClInclude Include="headers\Hud.h" />
-    <ClInclude Include="headers\Menu.h" />
+    <ClInclude Include="headers\AlertDialog.h" />
     <ClInclude Include="headers\Object.h" />
     <ClInclude Include="headers\Player.h" />
     <ClInclude Include="headers\Rock.h" />
@@ -157,7 +157,7 @@
     <ClCompile Include="manager\GameBoardManager.cpp" />
     <ClCompile Include="objects\Guard.cpp" />
     <ClCompile Include="manager\Main.cpp" />
-    <ClCompile Include="menu\Menu.cpp" />
+    <ClCompile Include="menu\AlertDialog.cpp" />
     <ClCompile Include="base\Object.cpp" />
     <ClCompile Include="objects\Player.cpp" />
     <ClCompile Include="objects\Rock.cpp" />

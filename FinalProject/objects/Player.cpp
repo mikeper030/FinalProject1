@@ -103,25 +103,25 @@ void Player::dropLife()
 		m_lives = 3;
 		//m_pos = m_start_pos;
 		//m_sprite.move(m_start_pos);
-		Controller::setRestart(true);
+		GameBoardManager::restartLevel();
 		break;
 	case 3:
 		m_lives = 2;
 		//m_pos = m_start_pos;
 		//m_sprite.move(m_start_pos);
-		Controller::setRestart(true);
+		GameBoardManager::restartLevel();
 		break;
 	case 2:
 		m_lives = 1;
 		//m_pos = m_start_pos;
 		//m_sprite.move(m_start_pos);
-		Controller::setRestart(true);
+		GameBoardManager::restartLevel();
 		break;
 	case 1:
 		m_lives = 0;
 		//m_pos = m_start_pos;
 		//m_sprite.move(m_start_pos);
-		Controller::setRestart(true);
+		GameBoardManager::restartLevel();
 		break;
 	}
 	

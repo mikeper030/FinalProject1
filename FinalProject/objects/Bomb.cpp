@@ -40,7 +40,11 @@ void Bomb::draw(sf::RenderWindow&w)
 		
 		if (m_timer.getElapsedTime().asSeconds() > 0.03 && sprite_index<81)
 		{
-			
+			//only handle explosion blast on several frames
+			if (sprite_index > 0 && sprite_index < 40)
+			{
+				collides(m_sprite, GameBoardManager::getDynamicObjects(), GameBoardManager::getStaticObjects());
+			}
 			m_sprite.setTexture(explosion);
 			m_sprite.setTextureRect(m_sheet.at(sprite_index));
 			if (sprite_index == 0) 
@@ -48,7 +52,6 @@ void Bomb::draw(sf::RenderWindow&w)
 				current_pos.x = current_pos.x - 50;
 				current_pos.y = current_pos.y - 50;
 			}
-			collides(m_sprite, GameBoardManager::getDynamicObjects(), GameBoardManager::getStaticObjects());
 			m_sprite.setPosition(current_pos);
 			sprite_index++;
 			m_timer.restart();

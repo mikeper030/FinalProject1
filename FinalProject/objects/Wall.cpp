@@ -2,6 +2,7 @@
 #include <iostream>
 #include "headers/DummyGuard.h"
 #include "headers/Player.h"
+#include "headers/SmartGuard.h"
 ////////////////////////////////////////////////////////
 // c'tor wall
 ////////////////////////////////////////////////////////
@@ -21,13 +22,16 @@ void Wall::collide(Object & otherObject, int index)
 {
 }
 
-void Wall::collide(Player & otherObject, int index)
+void Wall::collide(Player & player, int index)
 {
-	otherObject.setMoving(false);
+	player.setMoving(false);
 }
 
-void Wall::collide(SmartGuard & otherObject, int index)
+void Wall::collide(SmartGuard & guard, int index)
 {
+	guard.changeDirection();
+	std::cout << "smart change direction";
+
 }
 
 void Wall::collide(DummyGuard & guard, int index)

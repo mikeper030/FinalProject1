@@ -22,10 +22,6 @@ Object::Object(std::string texture_name, sf::Vector2f position, sf::Vector2f siz
 		m_start_scale = sf::Vector2f(size.x / 40, size.y / 40);
 		m_position = position;
 		m_start_pos = position;
-		std::cout << "size :" << std::endl;
-		std::cout << "wall  " << size.x << " " << size.y << std::endl;
-		std::cout << "position :" << std::endl;
-		std::cout << "wall  " << position.x << " " << position.y << std::endl;
 	}
 }
 

@@ -48,9 +48,6 @@
     <ClInclude Include="headers\DummyGuard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="headers\Guard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -61,6 +58,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\StaticObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\AlertDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,9 +98,6 @@
     <ClCompile Include="base\DynamicObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="menu\Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="utilities\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -114,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="menu\Hud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\AlertDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

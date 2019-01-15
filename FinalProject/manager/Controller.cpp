@@ -70,9 +70,7 @@ void Controller::startGame(std::string  name_file)
 	sf::Text menu_newGame;
 	sf::Text menu_exitGame;
 
-
 	sf::Clock clock;
-	
 	
 	while (window.isOpen())
 	{
@@ -87,24 +85,16 @@ void Controller::startGame(std::string  name_file)
 				window.close();
 				break;
 			}
-
 			
-				
 		}
+		float deltaTime = (float) 0.005;
 		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
 		{
 			isPlaying = true;
-			
-			
 		}
 		if (isPlaying)
-		{
-			//clock.restart();
-			
+		{			
 			manager.moveGuards(sf::Vector2f{ 0,0 }, 0.005, guardSpeed, manager.getDynamicObjects(), manager.getStaticObjects());
-			
-			float deltaTime =(float) 0.005; //clock.restart().asSeconds();
-
 			manager.updateRobot(18,playerSpeed,deltaTime);
 			
 			if (clock.getElapsedTime().asSeconds() > 1)
@@ -112,6 +102,7 @@ void Controller::startGame(std::string  name_file)
 				if (is_level_finished)
 				{
 					is_level_finished = false;
+					t.setTime(manager.getCurrentTimeLimit());
 					manager.goToNextLevel();
 					hud.setAlert(false);
 				}

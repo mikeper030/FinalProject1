@@ -37,7 +37,7 @@ public:
 	int getLevelBombsMax() const;
 	void draw(sf::RenderWindow & w);
 	void updateRobot(sf::Vector2f  new_position, sf::IntRect &rectSourceSprite, int first, int lest, float width, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2);
-	 void restartLevel();
+	static void restartLevel();
 	int getCurrentLevel() const;
      void goToNextLevel();
 	

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "headers/DummyGuard.h"
 #include "headers/GameBoardManager.h"
+#include "headers/SmartGuard.h"
 ////////////////////////////////////////////////////////
 // c'tor rock
 ////////////////////////////////////////////////////////
@@ -30,13 +31,14 @@ void Rock::collide(Player & otherObject, int index)
 {
 }
 
-void Rock::collide(SmartGuard & otherObject, int index)
+void Rock::collide(SmartGuard & guard, int index)
 {
+	guard.changeDirection();
 }
 
-void Rock::collide(DummyGuard & otherobject, int index)
+void Rock::collide(DummyGuard & guard, int index)
 {
-	otherobject.changeDirection();
+	guard.changeDirection();
 }
 
 void Rock::collide(Wall & otherObject, int index)

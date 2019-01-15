@@ -26,8 +26,7 @@ void DummyGuard::changeDirection()
 		
 		if(m_prev_direction==m_direction)
 			m_direction = rand() % range + 1;
-		std::cout << m_direction;
-		//m_prev_direction = m_direction;
+		
 	
 }
 
