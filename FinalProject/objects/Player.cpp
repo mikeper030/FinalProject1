@@ -72,23 +72,26 @@ bool Player::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<Dynamic
 			moving = false;
 			return true;
 		}
+		index++;
 	}
+	index = 0;
 	for (const auto& other : objects2)
 	{
 		std::string name = typeid(*other).name();
 		if (name.compare("class Bomb") == 0)
 			continue;
-		
-		
-			
-
+		else if (name.compare("class BonusGift") == 0&& fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
+		{
+			other->collide(*this, index);
+			continue;
+		}else
 		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
 		{
 			other->collide(*this, index);
 			
 			return true;
 		}
-
+		index++;
 	}
 	
 	return false;
@@ -101,26 +104,18 @@ void Player::dropLife()
 	{
 	case 4:
 		m_lives = 3;
-		//m_pos = m_start_pos;
-		//m_sprite.move(m_start_pos);
 		GameBoardManager::restartLevel();
 		break;
 	case 3:
 		m_lives = 2;
-		//m_pos = m_start_pos;
-		//m_sprite.move(m_start_pos);
 		GameBoardManager::restartLevel();
 		break;
 	case 2:
 		m_lives = 1;
-		//m_pos = m_start_pos;
-		//m_sprite.move(m_start_pos);
 		GameBoardManager::restartLevel();
 		break;
 	case 1:
 		m_lives = 0;
-		//m_pos = m_start_pos;
-		//m_sprite.move(m_start_pos);
 		GameBoardManager::restartLevel();
 		break;
 	}
@@ -211,4 +206,24 @@ void Player::collide(Bomb & bomb, int index)
 {
 	dropLife();
 }
+void Player::consumeGift()
+{
+	int range = 3;
+	//random the gift	
+    int r = rand() % range + 1;
+	switch (r)
+	{
+		//life bonus
+	case 1:
+		m_lives+=2;
+		break;
+	case 2://add points gift
+		GameBoardManager::addScore();
+		break;
+	case 3:
+		GameBoardManager::getLevelBombsMax() += 3;
 
+	default:
+		break;
+	}
+}

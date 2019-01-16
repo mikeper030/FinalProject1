@@ -10,6 +10,8 @@ public:
 	void draw(sf::RenderWindow&w);
 
 private:
+	int m_width, m_height;
+	sf::Font font;
 	sf::Text m_title,m_description;
 	sf::RectangleShape m_background;
 

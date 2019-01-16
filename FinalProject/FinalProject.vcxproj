@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="headers\Bomb.h" />
+    <ClInclude Include="headers\BonusGift.h" />
     <ClInclude Include="headers\Controller.h" />
     <ClInclude Include="headers\Door.h" />
     <ClInclude Include="headers\DummyGuard.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="menu\Hud.cpp" />
     <ClCompile Include="objects\Bomb.cpp" />
     <ClCompile Include="manager\Controller.cpp" />
+    <ClCompile Include="objects\BonusGift.cpp" />
     <ClCompile Include="objects\Door.cpp" />
     <ClCompile Include="objects\DummyGuard.cpp" />
     <ClCompile Include="base\DynamicObject.cpp" />
@@ -167,6 +169,7 @@
     <ClCompile Include="objects\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\OOP1\gift.png" />
     <Image Include="res\Bomberman.png" />
     <Image Include="res\door.png" />
     <Image Include="res\explosion_sheet.png" />

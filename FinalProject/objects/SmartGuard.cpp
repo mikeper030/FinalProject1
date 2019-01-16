@@ -7,7 +7,7 @@
 SmartGuard::SmartGuard(sf::Vector2f  position, sf::Vector2f size)
 	:Guard("res/SmartGuard.png",position,size)
 {
-	m_sprite.scale(sf::Vector2f((size.x / 40)*0.4, (size.y / 40)*0.4));
+	
 }
 void SmartGuard::changeDirection()
 {

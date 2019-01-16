@@ -98,6 +98,7 @@ void Bomb::loadSheet()
 
 bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2)
 {
+	bool c = false;
 	int i = 0;
 	for (const auto& other : objects1)
 	{
@@ -106,7 +107,7 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		{
 			
 			other->collide(*this, i);
-			return true;
+			
 		}
 		i++;
 	}
@@ -116,17 +117,17 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		// Don't collide with ourselves
 		if (this == other.get())
 		{
-			continue;
+			
 		}
 		//do not consume collisions if wall is in the blast //fixes bugs! 
 		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()) && typeid(*other) != typeid(Wall))
 		{
 			other->collide(*this, i);
-			return true;
+			continue;
 		}
 		i++;
 	}
-	return false;
+	return c;
 }
 
 void Bomb::collide(Player & player, int index)

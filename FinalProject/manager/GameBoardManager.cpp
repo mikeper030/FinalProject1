@@ -3,8 +3,8 @@
 //static initialization===================================================
 std::vector<std::unique_ptr<DynamicObject>> GameBoardManager::m_active;
 std::vector<std::unique_ptr<StaticObject>> GameBoardManager::m_static;
-float GameBoardManager::m_bombs_limit = 0;
-float GameBoardManager::m_bombs_counter = 0;
+int GameBoardManager::m_bombs_limit = 0;
+int GameBoardManager::m_bombs_counter = 0;
 float GameBoardManager::m_score = 0;
 float GameBoardManager::m_guards_num = 0;
 //========================================================================
@@ -76,7 +76,14 @@ void GameBoardManager::createBoardByFile()
 				break;
 			case 'D':
 				m_static.push_back(std::make_unique<Door>(v, sf::Vector2f(m_tile_width, m_tile_height)));
-				
+				break;
+			case '+':
+				m_static.push_back(std::make_unique<BonusGift>(v, sf::Vector2f(m_tile_width, m_tile_height),false));
+				break;
+			case '&':
+				m_static.push_back(std::make_unique<BonusGift>(v, sf::Vector2f(m_tile_width, m_tile_height),true));
+				m_static.push_back(std::make_unique<Rock>(v, sf::Vector2f(m_tile_width, m_tile_height)));
+
 				break;
 			default:
 				break;
@@ -188,7 +195,6 @@ void GameBoardManager::updateRobot(int width,float playerSpeed,float deltaTime)
 	else
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			
 			Controller::setRestart(true);
 		}
 }
@@ -198,7 +204,7 @@ std::vector<Bomb>& GameBoardManager::getBombs()
 	return m_bombs;
 }
 
-int GameBoardManager::getLevelBombsMax() const
+int &GameBoardManager::getLevelBombsMax() 
 {
 	return m_bombs_counter;
 }
@@ -283,6 +289,7 @@ int  GameBoardManager::getCurrentLevel() const
 }
 void GameBoardManager::goToNextLevel()
 {
+	m_score = m_score + 20 * m_guards_num;
 	m_curr_level++;
 	readSizeOfBoard();
 	createBoardByFile();

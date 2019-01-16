@@ -76,7 +76,7 @@ void Hud::setLevelNO(int num)
 }
 bool Hud::lowOnTime() const
 {
-	return m_timer.getElapsedTimeAsSeconds() < 20;
+	return m_timer.getElapsedTimeAsSeconds() < 20&&m_timer.getTimeFormatted()!="-:--";
 }
 void Hud::setLife(int lives)
 {
@@ -100,6 +100,5 @@ void Hud::setBombs(int bombs)
 
 void Hud::updateTime()
 {
-
 	timer_text.setString(m_timer.getTimeFormatted());
 }

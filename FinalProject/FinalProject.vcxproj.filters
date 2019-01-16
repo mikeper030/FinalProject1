@@ -63,6 +63,9 @@
     <ClInclude Include="headers\AlertDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\BonusGift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="objects\Bomb.cpp">
@@ -116,6 +119,9 @@
     <ClCompile Include="menu\AlertDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="objects\BonusGift.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Bomberman.png">
@@ -146,6 +152,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\wall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Desktop\OOP1\gift.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

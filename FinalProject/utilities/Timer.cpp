@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 Timer::Timer(int seconds)
+	:unlimited(false)
 {
 	m_time = seconds;
 }
@@ -11,16 +12,28 @@ void Timer::setTime(int seconds)
 	
 	m_time = seconds;
 }
+void Timer::setUnlimitedTimeMode(bool b)
+{
+	unlimited = b;
+	if(b)m_time = -2;
+}
 void Timer::secondPassed()
 {
-	m_time--;
+	if(!unlimited)m_time--;
 }
 int Timer::getElapsedTimeAsSeconds() const
 {
 	return m_time;
 }
-std::string & Timer::getTimeFormatted() 
+std::string Timer::getTimeFormatted() 
 {
+	
+	if (m_time == -2)
+	{
+		std::string s;
+		s = "-:--";
+		return s;
+	}
 	std::ostringstream o;
 	int minutes = m_time/60;
 	int seconds = m_time%60;

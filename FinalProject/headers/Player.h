@@ -32,6 +32,8 @@ public:
 	  void collide(Rock& otherObject, int index) override;
 	  void collide(Bomb& bomb, int index) override;
 
+	  void consumeGift();
+
 private:
 	
 	bool moving;

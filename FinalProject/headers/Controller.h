@@ -1,11 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameBoardManager.h"
+
 #include "DynamicObject.h"
 #include "StaticObject.h"
-#include "GameBoardManager.h"
 #include "Timer.h"
+#include "Hud.h"
+#include "AlertDialog.h"
 
+class GameBoardManager;
 class Controller
 {
 public:
@@ -16,6 +18,9 @@ public:
 	static void setRestart(bool b);
 	static bool restart();
 	static void setLevelFinished(bool b);
+
+	void updateDisplay(sf::RenderWindow & window, bool & isPlaying, sf::RectangleShape & winRec, sf::RectangleShape & boardRec, GameBoardManager & manager, Hud & hud, sf::RectangleShape & rectInter, sf::RectangleShape & newGame_botton, sf::RectangleShape & exitGame_botton, sf::Text & menu_newGame, sf::Text & menu_exitGame, sf::Sprite & soundIcon);
+ 
 private:
 	int m_screen_height, m_screen_width;
 	static bool is_level_finished,should_restart;

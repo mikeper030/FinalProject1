@@ -15,6 +15,7 @@
 #include "Door.h"
 #include "Bomb.h"
 #include "Controller.h"
+#include "BonusGift.h"
 
 class GameBoardManager
 {
@@ -34,7 +35,7 @@ public:
 	int &getCurrentTimeLimit();
 	void updateRobot(int width, float playerSpeed, float deltaTime);
 	std::vector<Bomb>& getBombs();
-	int getLevelBombsMax() const;
+	static int &getLevelBombsMax();
 	void draw(sf::RenderWindow & w);
 	void updateRobot(sf::Vector2f  new_position, sf::IntRect &rectSourceSprite, int first, int lest, float width, const std::vector<std::unique_ptr<DynamicObject>>& objects1, const std::vector<std::unique_ptr<StaticObject>>& objects2);
 	static void restartLevel();
@@ -46,7 +47,8 @@ private:
 	
 	int  m_time_level,m_curr_level;
 	std::ifstream & m_file;
-	static float m_bombs_limit, m_bombs_counter,m_score,m_guards_num;
+	static float m_score,m_guards_num;
+	static int m_bombs_limit, m_bombs_counter;
 	std::vector<std::unique_ptr<Object>> m_all;
 	static std::vector<std::unique_ptr<DynamicObject>> m_active;
 	static std::vector<std::unique_ptr<StaticObject>> m_static;
