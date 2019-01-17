@@ -103,11 +103,11 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 	for (const auto& other : objects1)
 	{
 		
-		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
+		if (other!=nullptr&&m_sprite.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
 		{
 			
 			other->collide(*this, i);
-			
+			//return true;
 		}
 		i++;
 	}
@@ -117,12 +117,13 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		// Don't collide with ourselves
 		if (this == other.get())
 		{
-			
+			//return false;
 		}
 		//do not consume collisions if wall is in the blast //fixes bugs! 
-		if (fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()) && typeid(*other) != typeid(Wall))
+		if (other!=nullptr&&fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()) && typeid(*other) != typeid(Wall))
 		{
 			other->collide(*this, i);
+			//return true;
 			continue;
 		}
 		i++;

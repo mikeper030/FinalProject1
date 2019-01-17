@@ -16,7 +16,7 @@ void Controller::startGame(std::string  name_file)
 	 float playerSpeed = 380.f;
 	 float guardSpeed = 150.f;
 	 // for low resolution support
-	if (sf::VideoMode::getDesktopMode().width <= 1920)
+	if (sf::VideoMode::getDesktopMode().width <= 1920.f)
 	{
 		playerSpeed = 190.f;
 		guardSpeed = 65.f;
@@ -137,7 +137,7 @@ void Controller::startGame(std::string  name_file)
 
 			}
 		}
-		float deltaTime = (float) 0.005;
+		float deltaTime = (float) 0.007;
 		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
 		{
 			isPlaying = true;
@@ -147,7 +147,7 @@ void Controller::startGame(std::string  name_file)
 
 		if (isPlaying)
 		{			
-			manager.moveGuards(sf::Vector2f{ 0,0 }, 0.005, guardSpeed, manager.getDynamicObjects(), manager.getStaticObjects());
+			manager.moveGuards(sf::Vector2f{ 0,0 }, deltaTime, guardSpeed, manager.getDynamicObjects(), manager.getStaticObjects());
 			manager.updateRobot(18,playerSpeed,deltaTime);
 			if (clock.getElapsedTime().asSeconds() > 1)
 			{
