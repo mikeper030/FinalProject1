@@ -2,6 +2,8 @@
 #include "headers/Controller.h"
 #include "headers/Bomb.h"
 #include "headers/GameBoardManager.h"
+
+
 //static initializers======================
 bool Controller::is_level_finished = false;
 bool Controller::should_restart = false;
@@ -24,7 +26,10 @@ void Controller::startGame(std::string  name_file)
 	
 	Bomb::loadSheet();
 	//change this to enable main menu
-	bool isPlaying = true;
+	bool isPlaying = false;
+	bool isPause = false;
+	int command;
+
 
 	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
 	m_screen_height = sf::VideoMode::getDesktopMode().height*0.75;
@@ -41,6 +46,14 @@ void Controller::startGame(std::string  name_file)
 	boardRec.setPosition(0, m_screen_height*0.15);
 
 	
+	sf::Music gameSound;
+	gameSound.openFromFile("res/game.ogg");
+	gameSound.setVolume(30);
+	gameSound.setLoop(true);
+
+	sf::Music introgame;
+	introgame.openFromFile("res/intro.wav");
+	introgame.setVolume(50);
 
 
 	std::ifstream file(name_file);
@@ -75,6 +88,7 @@ void Controller::startGame(std::string  name_file)
 	sf::Text menu_newGame;
 	sf::Text menu_exitGame;
 
+	introgame.play();
 	sf::Clock clock;
 	
 	while (window.isOpen())
@@ -91,12 +105,46 @@ void Controller::startGame(std::string  name_file)
 				break;
 			}
 			
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+			{
+				command = m_menu.pauseGame(window, event, m_screen_width, m_screen_height);
+				if (command == 1)
+				{
+					std::cout << "work draw 1" << std::endl;
+
+					//continue in game
+					isPause = false;
+					isPlaying = true;
+					break;
+				}
+				if (command == 2)
+				{
+					std::cout << "work draw 2" << std::endl;
+
+					//restart level
+					isPause = true;
+					//manager.restartLevel();
+
+				}
+				if (command == 3)
+				{
+					std::cout << "work draw 3" << std::endl;
+
+					isPause = true;
+					isPlaying = false;
+					break;
+				}
+
+			}
 		}
 		float deltaTime = (float) 0.005;
 		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
 		{
 			isPlaying = true;
+			introgame.stop();
+			gameSound.play();
 		}
+
 		if (isPlaying)
 		{			
 			manager.moveGuards(sf::Vector2f{ 0,0 }, 0.005, guardSpeed, manager.getDynamicObjects(), manager.getStaticObjects());

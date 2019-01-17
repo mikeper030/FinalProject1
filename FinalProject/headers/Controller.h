@@ -1,11 +1,15 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 #include "DynamicObject.h"
 #include "StaticObject.h"
 #include "Timer.h"
 #include "Hud.h"
 #include "AlertDialog.h"
+#include "headers/Menu.h"
 
 class GameBoardManager;
 class Controller
@@ -24,5 +28,6 @@ public:
 private:
 	int m_screen_height, m_screen_width;
 	static bool is_level_finished,should_restart;
-	
+	Menu m_menu;
+
 };
