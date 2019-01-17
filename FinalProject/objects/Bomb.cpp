@@ -15,6 +15,11 @@ Bomb::Bomb(sf::Vector2f position, sf::Vector2f size)
 	m_texture.setSmooth(true);
 	m_texture.loadFromFile("res/bomb.png");
 	explosion.loadFromFile("res/explosion_sheet.png");
+	font.loadFromFile("res/DS-DIGI.TTF");
+	bomb_counter.setFillColor(sf::Color::Red);
+	bomb_counter.setFont(font);
+	bomb_counter.setCharacterSize(size.x / 2);
+	bomb_counter.setString("4");
 	
 }
 
@@ -24,7 +29,6 @@ void Bomb::draw(sf::RenderWindow&w)
 	sf::Vector2f current_pos = m_sprite.getPosition();
 	if (!is_blowing)
 	{
-		
 		if (m_timer.getElapsedTime().asSeconds() < 4)
 		{
 			m_sprite.setTexture(m_texture);
@@ -101,13 +105,11 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 	bool c = false;
 	int i = 0;
 	for (const auto& other : objects1)
-	{
-		
+	{	
 		if (other!=nullptr&&m_sprite.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
-		{
-			
+		{	
 			other->collide(*this, i);
-			//return true;
+			c= true;
 		}
 		i++;
 	}
@@ -117,14 +119,13 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		// Don't collide with ourselves
 		if (this == other.get())
 		{
-			//return false;
+			continue;
 		}
 		//do not consume collisions if wall is in the blast //fixes bugs! 
 		if (other!=nullptr&&fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()) && typeid(*other) != typeid(Wall))
 		{
 			other->collide(*this, i);
-			//return true;
-			continue;
+			c = true;
 		}
 		i++;
 	}
@@ -133,6 +134,7 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 
 void Bomb::collide(Player & player, int index)
 {
+	GameBoardManager::restartLevel();
 	player.dropLife();
 }
 
