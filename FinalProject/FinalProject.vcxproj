@@ -189,12 +189,12 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\16-Game Over.wav" />
-    <Media Include="res\boom.wav" />
     <Media Include="res\game.wav" />
     <Media Include="res\intro.wav" />
     <Media Include="res\steps.wav" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\boom.ogg" />
     <None Include="res\game.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,11 +21,19 @@ Bomb::Bomb(sf::Vector2f position, sf::Vector2f size)
 	bomb_counter.setCharacterSize(size.x / 2);
 	bomb_counter.setString("4");
 	
+
 }
 
 //@override 
 void Bomb::draw(sf::RenderWindow&w)
 {
+	buff.loadFromFile("res/BOM_11_S.wav");
+	boom.setBuffer(buff);
+	boom.setLoop(false);
+	boom.setVolume(100);
+
+	
+	//boom.play();
 	sf::Vector2f current_pos = m_sprite.getPosition();
 	if (!is_blowing)
 	{
@@ -37,6 +45,8 @@ void Bomb::draw(sf::RenderWindow&w)
 		else
 		{
 			is_blowing = true;
+			boom.play();
+			//m_boom.play();
 		}
 	}
 	else
@@ -65,6 +75,7 @@ void Bomb::draw(sf::RenderWindow&w)
 			if (sprite_index == 81)
 			{
 				is_finished = true;
+				boom.stop();
 			}
 		}
 		w.draw(m_sprite);

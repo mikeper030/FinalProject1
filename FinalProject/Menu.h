@@ -6,7 +6,7 @@ class Menu
 {
 public:
 	Menu();
-	int pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w, sf::Music & soundClick);
+	int pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w);
 	void drawPause(sf::RenderWindow & window);
 	~Menu();
 

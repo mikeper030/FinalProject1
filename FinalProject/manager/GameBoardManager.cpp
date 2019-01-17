@@ -219,7 +219,7 @@ int &GameBoardManager::getLevelBombsMax()
 /////////////////////////////////////////////////////////
 void GameBoardManager::draw(sf::RenderWindow & w)
 {
-	
+
 	int j = 0;
 	for (size_t i = 0; i < m_static.size(); i++)
 	{

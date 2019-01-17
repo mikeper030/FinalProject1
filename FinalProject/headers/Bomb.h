@@ -1,6 +1,11 @@
 #pragma once
 #include "StaticObject.h"
 #include "DynamicObject.h"
+#include "SFML/Audio.hpp"
+#include <string>
+#include <iostream>
+#include "SFML/Graphics.hpp"
+
 class Bomb :public StaticObject
 {
 public:
@@ -30,8 +35,11 @@ private:
 	sf::Texture explosion;
 	sf::Text bomb_counter;
 	sf::Font font;
+	//sf::Music m_boom;
 	int sprite_index = 0;
 	bool is_finished = false;
 	bool is_blowing=false;
-};
+	sf::Sound boom;
+	sf::SoundBuffer buff;
 
+};

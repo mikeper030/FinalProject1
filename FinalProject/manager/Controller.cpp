@@ -53,11 +53,11 @@ void Controller::startGame(std::string  name_file)
 
 	sf::Music introgame;
 	introgame.openFromFile("res/intro.wav");
-	introgame.setVolume(40);
+	introgame.setVolume(20);
 
-	sf::Music soundClick;
-	soundClick.openFromFile("res/steps.wav");
-	soundClick.setVolume(100);
+	sf::Music soundPause;
+	soundPause.openFromFile("res/stop_pause.wav");
+	soundPause.setVolume(80);
 
 	
 
@@ -93,6 +93,10 @@ void Controller::startGame(std::string  name_file)
 	sf::Text menu_newGame;
 	sf::Text menu_exitGame;
 
+	sf::Music boom;
+	boom.openFromFile("res/boom.ogg");
+	boom.setVolume(90);
+
 	introgame.play();
 	sf::Clock clock;
 	
@@ -112,7 +116,9 @@ void Controller::startGame(std::string  name_file)
 			
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 			{
-				command = m_menu.pauseGame(window, event, m_screen_width, m_screen_height, soundClick);
+				soundPause.play();
+				command = m_menu.pauseGame(window, event, m_screen_width, m_screen_height);
+				soundPause.stop();
 				if (command == 1)
 				{
 					std::cout << "work draw 1" << std::endl;
@@ -120,8 +126,8 @@ void Controller::startGame(std::string  name_file)
 					//continue in game
 					isPause = false;
 					isPlaying = true;
-					soundClick.play();
-					soundClick.stop();
+					//soundClick.play();
+					//soundClick.stop();
 					break;
 				}
 				if (command == 2)
@@ -130,8 +136,8 @@ void Controller::startGame(std::string  name_file)
 
 					//restart level
 					isPause = true;
-					soundClick.play();
-					soundClick.stop();
+					//soundClick.play();
+					//soundClick.stop();
 					//manager.restartLevel();
 
 				}
@@ -148,7 +154,7 @@ void Controller::startGame(std::string  name_file)
 			}
 		}
 		float deltaTime = (float) 0.007;
-		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window, soundClick))
+		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
 		{
 			isPlaying = true;
 			introgame.stop();
@@ -246,7 +252,7 @@ void Controller::startGame(std::string  name_file)
 
 bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::RectangleShape & newGame_botton,
 	sf::RectangleShape & exitGame_botton, sf::Font & font,
-	sf::Text& menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window, sf::Music & soundClick)
+	sf::Text& menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window)
 {
 	newGame_botton.setFillColor(sf::Color::Red);
 	newGame_botton.setPosition(65, 400);

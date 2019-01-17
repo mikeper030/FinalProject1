@@ -6,7 +6,7 @@ Menu::Menu()
 {
 }
 
-int Menu::pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w, sf::Music & soundClick)
+int Menu::pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w)
 {
 	std::cout << "work ok" << std::endl;
 
