@@ -3,6 +3,8 @@
 #include <iostream>
 #include "headers/Rock.h"
 #include "headers/GameBoardManager.h"
+#include "SFML/Audio.hpp"
+
 
 //static initializiation===============
 std::vector<sf::IntRect> Bomb::m_sheet;
@@ -21,6 +23,9 @@ Bomb::Bomb(sf::Vector2f position, sf::Vector2f size)
 //@override 
 void Bomb::draw(sf::RenderWindow&w)
 {
+	sf::Music boom;
+	boom.openFromFile("res/boom.wav");
+	boom.setVolume(100);
 	sf::Vector2f current_pos = m_sprite.getPosition();
 	if (!is_blowing)
 	{
@@ -33,6 +38,8 @@ void Bomb::draw(sf::RenderWindow&w)
 		else
 		{
 			is_blowing = true;
+			
+			boom.play();
 		}
 	}
 	else
@@ -61,6 +68,7 @@ void Bomb::draw(sf::RenderWindow&w)
 			if (sprite_index == 81)
 			{
 				is_finished = true;
+				boom.stop();
 			}
 		}
 		w.draw(m_sprite);
@@ -107,7 +115,7 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		{
 			
 			other->collide(*this, i);
-			//return true;
+			c = true;
 		}
 		i++;
 	}
@@ -117,14 +125,13 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 		// Don't collide with ourselves
 		if (this == other.get())
 		{
-			//return false;
+			continue;
 		}
 		//do not consume collisions if wall is in the blast //fixes bugs! 
 		if (other!=nullptr&&fr.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()) && typeid(*other) != typeid(Wall))
 		{
 			other->collide(*this, i);
-			//return true;
-			continue;
+			c = true;
 		}
 		i++;
 	}

@@ -163,9 +163,12 @@ int & GameBoardManager::getCurrentTimeLimit()
 
 void GameBoardManager::updateRobot(int width,float playerSpeed,float deltaTime)
 {
+	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		updateRobot({ playerSpeed * deltaTime ,0.f }, Player::getSheet().at(1), 3, 5, width, getDynamicObjects(), getStaticObjects());
+
 	}
 	else
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -175,7 +178,7 @@ void GameBoardManager::updateRobot(int width,float playerSpeed,float deltaTime)
 	else
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-	updateRobot({ -playerSpeed * deltaTime ,0.f }, Player::getSheet().at(3), 9, 11, width, getDynamicObjects(),getStaticObjects());
+		updateRobot({ -playerSpeed * deltaTime ,0.f }, Player::getSheet().at(3), 9, 11, width, getDynamicObjects(),getStaticObjects());
 	}
 	else
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -216,6 +219,7 @@ int &GameBoardManager::getLevelBombsMax()
 /////////////////////////////////////////////////////////
 void GameBoardManager::draw(sf::RenderWindow & w)
 {
+	
 	int j = 0;
 	for (size_t i = 0; i < m_static.size(); i++)
 	{
@@ -223,8 +227,9 @@ void GameBoardManager::draw(sf::RenderWindow & w)
 	}
 	for (Bomb& b : m_bombs)
 	{
-		if (!b.isFinished())
+		if (!b.isFinished()) {
 			b.draw(w);
+		}
 		else
 		 {
 			//m_bombs.erase(&m_bombs[j]);

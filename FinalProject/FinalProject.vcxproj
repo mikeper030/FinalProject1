@@ -192,7 +192,7 @@
     <Media Include="res\boom.wav" />
     <Media Include="res\game.wav" />
     <Media Include="res\intro.wav" />
-    <Media Include="res\select_menu_item.wav" />
+    <Media Include="res\steps.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\game.ogg" />

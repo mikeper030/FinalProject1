@@ -53,8 +53,13 @@ void Controller::startGame(std::string  name_file)
 
 	sf::Music introgame;
 	introgame.openFromFile("res/intro.wav");
-	introgame.setVolume(50);
+	introgame.setVolume(40);
 
+	sf::Music soundClick;
+	soundClick.openFromFile("res/steps.wav");
+	soundClick.setVolume(100);
+
+	
 
 	std::ifstream file(name_file);
 	if (!file.good())
@@ -107,7 +112,7 @@ void Controller::startGame(std::string  name_file)
 			
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 			{
-				command = m_menu.pauseGame(window, event, m_screen_width, m_screen_height);
+				command = m_menu.pauseGame(window, event, m_screen_width, m_screen_height, soundClick);
 				if (command == 1)
 				{
 					std::cout << "work draw 1" << std::endl;
@@ -115,6 +120,8 @@ void Controller::startGame(std::string  name_file)
 					//continue in game
 					isPause = false;
 					isPlaying = true;
+					soundClick.play();
+					soundClick.stop();
 					break;
 				}
 				if (command == 2)
@@ -123,6 +130,8 @@ void Controller::startGame(std::string  name_file)
 
 					//restart level
 					isPause = true;
+					soundClick.play();
+					soundClick.stop();
 					//manager.restartLevel();
 
 				}
@@ -132,17 +141,19 @@ void Controller::startGame(std::string  name_file)
 
 					isPause = true;
 					isPlaying = false;
+					
 					break;
 				}
 
 			}
 		}
 		float deltaTime = (float) 0.007;
-		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
+		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window, soundClick))
 		{
 			isPlaying = true;
 			introgame.stop();
-			gameSound.play();
+			
+		//	gameSound.play();
 		}
 
 		if (isPlaying)
@@ -235,7 +246,7 @@ void Controller::startGame(std::string  name_file)
 
 bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::RectangleShape & newGame_botton,
 	sf::RectangleShape & exitGame_botton, sf::Font & font,
-	sf::Text& menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window)
+	sf::Text& menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window, sf::Music & soundClick)
 {
 	newGame_botton.setFillColor(sf::Color::Red);
 	newGame_botton.setPosition(65, 400);
@@ -264,6 +275,8 @@ bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::Rectangl
 	{
 		if (exitGame_botton.getGlobalBounds().contains(mouse_world))
 		{
+			soundClick.play();
+			soundClick.stop();
 			window.close();
 		}
 	}
@@ -272,6 +285,8 @@ bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::Rectangl
 	{
 		if (newGame_botton.getGlobalBounds().contains(mouse_world))
 		{
+			soundClick.play();
+			soundClick.stop();
 			return true;
 		}
 	}

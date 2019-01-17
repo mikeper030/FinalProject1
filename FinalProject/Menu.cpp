@@ -1,4 +1,4 @@
-#include "headers/Menu.h"
+#include "Menu.h"
 #include <iostream>
 
 
@@ -6,7 +6,7 @@ Menu::Menu()
 {
 }
 
-int Menu::pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w)
+int Menu::pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w, sf::Music & soundClick)
 {
 	std::cout << "work ok" << std::endl;
 
@@ -75,21 +75,18 @@ int Menu::pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w)
 			{
 				std::cout << "work click" << std::endl;
 
-				//chooseSound.play();
 				window.close();
 			}
 
 			if (m_resumeRect.getGlobalBounds().contains(mouse_world))
 			{
 				std::cout << "work click" << std::endl;
-				//chooseSound.play();
 				return 1;
 			}
 
 			if (m_restartLevelRect.getGlobalBounds().contains(mouse_world))
 			{
 				std::cout << "work click" << std::endl;
-				//chooseSound.play();
 				return 2;
 			}
 		}

@@ -1,11 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "SFML/Audio.hpp"
 
 class Menu
 {
 public:
 	Menu();
-	int pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w);
+	int pauseGame(sf::RenderWindow & window, sf::Event & event, int h, int w, sf::Music & soundClick);
 	void drawPause(sf::RenderWindow & window);
 	~Menu();
 

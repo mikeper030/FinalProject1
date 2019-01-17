@@ -181,7 +181,7 @@
     <Media Include="res\intro.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="res\select_menu_item.wav">
+    <Media Include="res\steps.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
