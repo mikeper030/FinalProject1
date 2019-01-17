@@ -3,8 +3,6 @@
 #include <iostream>
 #include "headers/Rock.h"
 #include "headers/GameBoardManager.h"
-#include "SFML/Audio.hpp"
-
 
 //static initializiation===============
 std::vector<sf::IntRect> Bomb::m_sheet;
@@ -17,19 +15,20 @@ Bomb::Bomb(sf::Vector2f position, sf::Vector2f size)
 	m_texture.setSmooth(true);
 	m_texture.loadFromFile("res/bomb.png");
 	explosion.loadFromFile("res/explosion_sheet.png");
+	font.loadFromFile("res/DS-DIGI.TTF");
+	bomb_counter.setFillColor(sf::Color::Red);
+	bomb_counter.setFont(font);
+	bomb_counter.setCharacterSize(size.x / 2);
+	bomb_counter.setString("4");
 	
 }
 
 //@override 
 void Bomb::draw(sf::RenderWindow&w)
 {
-	sf::Music boom;
-	boom.openFromFile("res/boom.wav");
-	boom.setVolume(100);
 	sf::Vector2f current_pos = m_sprite.getPosition();
 	if (!is_blowing)
 	{
-		
 		if (m_timer.getElapsedTime().asSeconds() < 4)
 		{
 			m_sprite.setTexture(m_texture);
@@ -38,8 +37,6 @@ void Bomb::draw(sf::RenderWindow&w)
 		else
 		{
 			is_blowing = true;
-			
-			boom.play();
 		}
 	}
 	else
@@ -68,7 +65,6 @@ void Bomb::draw(sf::RenderWindow&w)
 			if (sprite_index == 81)
 			{
 				is_finished = true;
-				boom.stop();
 			}
 		}
 		w.draw(m_sprite);
@@ -109,13 +105,11 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 	bool c = false;
 	int i = 0;
 	for (const auto& other : objects1)
-	{
-		
+	{	
 		if (other!=nullptr&&m_sprite.getGlobalBounds().intersects(other->getSprite().getGlobalBounds()))
-		{
-			
+		{	
 			other->collide(*this, i);
-			c = true;
+			c= true;
 		}
 		i++;
 	}
@@ -140,6 +134,7 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 
 void Bomb::collide(Player & player, int index)
 {
+	GameBoardManager::restartLevel();
 	player.dropLife();
 }
 
