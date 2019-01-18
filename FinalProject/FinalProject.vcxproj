@@ -158,8 +158,10 @@
     <ClInclude Include="headers\StaticObject.h" />
     <ClInclude Include="headers\TimeUtils.h" />
     <ClInclude Include="headers\Wall.h" />
+    <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="menu\Hud.cpp" />
     <ClCompile Include="menu\MainMenu.cpp" />
     <ClCompile Include="menu\PauseMenu.cpp" />
@@ -198,6 +200,16 @@
   <ItemGroup>
     <Font Include="res\1stenterprisesexpand.ttf" />
     <Font Include="res\sansation.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\16-Game Over.wav" />
+    <Media Include="res\game.wav" />
+    <Media Include="res\intro.wav" />
+    <Media Include="res\steps.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\boom.ogg" />
+    <None Include="res\game.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

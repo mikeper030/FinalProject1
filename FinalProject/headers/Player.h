@@ -41,6 +41,10 @@ private:
 	static int m_lives;
 	static sf::Vector2f m_pos;
 	static std::vector<sf::IntRect> sheet;
-	
+	//sf::Music death;
+	sf::Sound death;
+	sf::SoundBuffer s;
+
+
 };
 

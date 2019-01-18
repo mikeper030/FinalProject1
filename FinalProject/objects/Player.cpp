@@ -38,7 +38,9 @@ Player::Player(sf::Vector2f  position, sf::Vector2f size,SoundUtils&sound)
 	m_sprite.setPosition(sf::Vector2f(position));
 	m_sprite.scale(sf::Vector2f(size.x / (width*1.3 ), size.y / (height*1.3 )));
 	m_position = position;
-
+	//death.openFromFile("res/player_death.wav");
+	s.loadFromFile("res/player_death.wav");
+	death.setBuffer(s);
 }
 
 ////////////////////////////////////////////////////////
@@ -182,11 +184,18 @@ void Player::collide(Player & otherObject, int index)
 
 void Player::collide(SmartGuard & otherObject, int index)
 {
+	//sf::Music death;
+	
+	death.setVolume(90);
+	death.play();
 	dropLife();
  }
 
 void Player::collide(DummyGuard & otherobject, int index)
 {
+	//death.openFromFile("res/player_death.wav");
+	death.setVolume(90);
+	death.play();
 	dropLife();
 }
 
@@ -200,6 +209,10 @@ void Player::collide(Rock & otherObject, int index)
 
 void Player::collide(Bomb & bomb, int index)
 {
+	//sf::Music death;
+	//death.openFromFile("res/player_death.wav");
+	death.setVolume(90);
+	death.play();
 	dropLife();
 }
 void Player::consumeGift()

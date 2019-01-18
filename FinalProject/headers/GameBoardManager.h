@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "SFML/Audio.hpp"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -62,6 +63,7 @@ private:
 	std::vector<Bomb> m_bombs;
 	bool is_player_sound_on;
 	
+
 
 
 };
