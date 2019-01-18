@@ -2,12 +2,12 @@
 #include "DynamicObject.h"
 #include "StaticObject.h"
 #include "GameBoardManager.h"
-
+#include "SoundUtils.h"
 
 class Player :public DynamicObject
 {
 public:
-	Player(sf::Vector2f  position, sf::Vector2f size);
+	Player(sf::Vector2f  position, sf::Vector2f size,SoundUtils&s);
 	static std::vector<sf::IntRect>& getSheet();
 	
 
@@ -22,6 +22,7 @@ public:
 	 
 	 static void dropLife();
 	 static int getLives() ;
+	 static void setLife(int);
 	 void setDeltaAspeed(float, float);
 	 void setMoving(bool move);
 	void collide(Object & otherObject , int index) override;
@@ -35,7 +36,7 @@ public:
 	  void consumeGift();
 
 private:
-	
+	static SoundUtils m_sound;
 	bool moving;
 	static int m_lives;
 	static sf::Vector2f m_pos;

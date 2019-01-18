@@ -2,12 +2,17 @@
 #include "headers/Controller.h"
 #include "headers/Bomb.h"
 #include "headers/GameBoardManager.h"
+#include "headers/SoundUtils.h"
 //static initializers======================
 bool Controller::is_level_finished = false;
 bool Controller::should_restart = false;
+bool Controller::game_over = false;
+
 //=========================================
 
-Controller::Controller(){}
+
+
+Controller::Controller():should_exit(false){}
 
 void Controller::startGame(std::string  name_file)
 {
@@ -24,8 +29,9 @@ void Controller::startGame(std::string  name_file)
 	
 	Bomb::loadSheet();
 	//change this to enable main menu
-	bool isPlaying = true;
-
+	bool isPlaying = false;
+	bool isPause = false;
+	sound.playIntro();
 	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
 	m_screen_height = sf::VideoMode::getDesktopMode().height*0.75;
 	
@@ -46,35 +52,24 @@ void Controller::startGame(std::string  name_file)
 	std::ifstream file(name_file);
 	if (!file.good())
 		return;
-	GameBoardManager manager(file);
+	
+	
+	
+	MainMenu mainMenu(m_screen_width,m_screen_height);
+	GameBoardManager manager(file,sound);
+	//in game head up display
+	
 	manager.readSizeOfBoard();
 	manager.createBoardByFile();
-	//in game head up display
-	Timer t(manager.getCurrentTimeLimit());
+	TimeUtils t(manager.getCurrentTimeLimit());
+	
 	if (manager.getCurrentTimeLimit() == -1)
 		t.setUnlimitedTimeMode(true);
 	Hud hud(0, 4, manager.getLevelBombsMax(),1 , m_screen_width, m_screen_height,t);
 	
 	AlertDialog dialog;
-	sf::Texture texture;
-	texture.loadFromFile("res/inter.png");
-	texture.setSmooth(true);
-	sf::RectangleShape rectInter(sf::Vector2f(m_screen_width, m_screen_height));
-	rectInter.setTexture(&texture);
-	rectInter.setPosition(0, 0);
-	sf::Texture soundTexture;
-	soundTexture.loadFromFile("res/music.png");
-	sf::Sprite soundIcon(soundTexture);
-	soundIcon.setPosition(20, 20);
-
-
-	sf::RectangleShape newGame_botton(sf::Vector2f(m_screen_width/10, m_screen_height/10));
-	sf::RectangleShape exitGame_botton(sf::Vector2f(m_screen_width / 10, m_screen_height / 10));
-	sf::Font font;
-	font.loadFromFile("res/1stenterprisesexpand.ttf");
-	sf::Text menu_newGame;
-	sf::Text menu_exitGame;
-
+	
+	int command = 0;
 	sf::Clock clock;
 	
 	while (window.isOpen())
@@ -85,22 +80,29 @@ void Controller::startGame(std::string  name_file)
 		{
 			// Window closed or escape key pressed: exit
 			if ((event.type == sf::Event::Closed) ||
-				((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)))
+				((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape||should_exit)))
 			{
 				window.close();
 				break;
 			}
-			
+			else
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+				{
+					sound.playIntro();
+					command = pauseMenu.pauseGame(window, event, m_screen_width, m_screen_height);
+					getCommand(command,isPause,isPlaying,manager,t,hud);
+				}
 		}
 		float deltaTime = (float) 0.007;
-		if (newGame(event, texture, newGame_botton, exitGame_botton, font, menu_newGame, menu_exitGame, window))
+		if (mainMenu.newGame(event, window))
 		{
+			sound.stopIntro();
 			isPlaying = true;
 		}
 		if (isPlaying)
 		{			
 			manager.moveGuards(sf::Vector2f{ 0,0 }, deltaTime, guardSpeed, manager.getDynamicObjects(), manager.getStaticObjects());
-			manager.updateRobot(18,playerSpeed,deltaTime);
+			manager.updateRobot(18,playerSpeed,deltaTime,event);
 			if (clock.getElapsedTime().asSeconds() > 1)
 			{
 				if (is_level_finished)//level finsihed successfully
@@ -114,14 +116,12 @@ void Controller::startGame(std::string  name_file)
 						{
 							dialog.setTitle("Success!");
 							dialog.setDescription("Level starting...");
-							updateDisplay(window, isPlaying, winRec, boardRec, manager, hud, rectInter, newGame_botton, exitGame_botton, menu_newGame, menu_exitGame, soundIcon);
-							
+							updateDisplay(window, isPlaying, winRec, boardRec, manager, hud, mainMenu);
 							dialog.draw(window);
 							window.display();
 						}
 						else
 						{
-							
 							is_level_finished = false;
 							t.setTime(manager.getCurrentTimeLimit());
 							if (manager.getCurrentTimeLimit() == -1)
@@ -141,8 +141,10 @@ void Controller::startGame(std::string  name_file)
 				}
 				if (t.isFinished()||should_restart)
 				{
+					sound.playFail();
 					if (should_restart)
 					{
+						
 						Player::dropLife();
 						should_restart = false;
 					}
@@ -151,7 +153,7 @@ void Controller::startGame(std::string  name_file)
 					{
 						if (temp.getElapsedTime().asSeconds() < 3)
 						{
-							updateDisplay(window, isPlaying, winRec, boardRec, manager, hud, rectInter, newGame_botton, exitGame_botton, menu_newGame, menu_exitGame, soundIcon);
+							updateDisplay(window, isPlaying, winRec, boardRec, manager, hud, mainMenu);
 							dialog.setDescription("Level restarting...");
 							dialog.setTitle("Wasted!");
 							dialog.draw(window);
@@ -162,20 +164,31 @@ void Controller::startGame(std::string  name_file)
 					}
 					
 					hud.setAlert(false);
+					
 					manager.restartLevel();
+					
 					t.setTime(manager.getCurrentTimeLimit());
 				}
+					if (game_over)
+					{
+						game_over = false;
+						manager.restartGame(t);
+						hud.setBombs(manager.getLevelBombsMax());
+						hud.setAlert(false);
+						hud.setBombs(manager.getLevelBombsMax());
+						hud.setLevelNO(1);
+						Player::setLife(4);
+						hud.setLife(4);
+						hud.setScore(0);
+					}
 				clock.restart();
 			}
 			
 			hud.updateTime();
 			
 		}
-		
-			updateDisplay(window, isPlaying, winRec, boardRec, manager, hud, rectInter, newGame_botton, exitGame_botton, menu_newGame, menu_exitGame, soundIcon);
+			updateDisplay(window, isPlaying, winRec, boardRec, manager, hud,mainMenu);
 			window.display();
-
-		
 	}
 
 
@@ -183,52 +196,42 @@ void Controller::startGame(std::string  name_file)
 
 	
 }
-
-
-bool Controller::newGame(sf::Event  & event, sf::Texture & texture, sf::RectangleShape & newGame_botton,
-	sf::RectangleShape & exitGame_botton, sf::Font & font,
-	sf::Text& menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window)
+void Controller::getCommand(int command,bool&isPause,bool&isPlaying,GameBoardManager&manager,TimeUtils&t,Hud&hud)
 {
-	newGame_botton.setFillColor(sf::Color::Red);
-	newGame_botton.setPosition(65, 400);
-
-	exitGame_botton.setFillColor(sf::Color::Red);
-	exitGame_botton.setPosition(65, 470);
-
-	menu_newGame.setFont(font);
-	menu_newGame.setCharacterSize(30);
-	menu_newGame.setPosition(73, 405);
-	menu_newGame.setFillColor(sf::Color::Black);
-	menu_newGame.setString("New Game");
-
-	menu_exitGame.setFont(font);
-	menu_exitGame.setCharacterSize(30);
-	menu_exitGame.setPosition(73, 475);
-	menu_exitGame.setFillColor(sf::Color::Black);
-	menu_exitGame.setString("Exit Game");
-
-	//get mouse position 
-	sf::Vector2i mouse = sf::Mouse::getPosition(window);
-	//compute global boundries
-	sf::Vector2f mouse_world = window.mapPixelToCoords(mouse);
-
-	if (event.mouseButton.button == sf::Mouse::Button::Left)
+	switch (command)
 	{
-		if (exitGame_botton.getGlobalBounds().contains(mouse_world))
-		{
-			window.close();
-		}
+	case 1:
+		isPause = false;
+		isPlaying = true;
+		sound.stopIntro();
+		break;
+	case 2:
+		isPause = true;
+		
+		manager.restartGame(t);
+	
+		hud.setAlert(false);
+		hud.setBombs(manager.getLevelBombsMax());
+		hud.setLevelNO(1);
+		Player::setLife(4);
+		hud.setLife(4);
+		hud.setScore(0);
+		manager.restartGame(t);
+		sound.stopIntro();
+		break;
+	case 3:
+		break;
+		should_exit = true;
+		isPause = true;
+		isPlaying = false;
+		sound.stopIntro();
+	default:
+		
+		break;
 	}
-
-	if (event.mouseButton.button == sf::Mouse::Button::Left)
-	{
-		if (newGame_botton.getGlobalBounds().contains(mouse_world))
-		{
-			return true;
-		}
-	}
-	return false;
 }
+
+
 
 bool Controller::levelFinsihed()
 {
@@ -248,9 +251,13 @@ void Controller::setLevelFinished(bool b)
 	is_level_finished = b;
 }
 
+void Controller::setGameOver(bool b)
+{
+	game_over = b;
+}
 
-void Controller::updateDisplay(sf::RenderWindow&window,bool&isPlaying,sf::RectangleShape&winRec,sf::RectangleShape&boardRec,GameBoardManager&manager,Hud&hud,
-	sf::RectangleShape&rectInter,sf::RectangleShape&newGame_botton,sf::RectangleShape&exitGame_botton,sf::Text&menu_newGame,sf::Text&menu_exitGame,sf::Sprite&soundIcon)
+
+void Controller::updateDisplay(sf::RenderWindow&window,bool&isPlaying,sf::RectangleShape&winRec,sf::RectangleShape&boardRec,GameBoardManager&manager,Hud&hud,MainMenu&main_menu)
 {
 	// Clear the window
 	window.clear(sf::Color(50, 200, 50));
@@ -273,13 +280,8 @@ void Controller::updateDisplay(sf::RenderWindow&window,bool&isPlaying,sf::Rectan
 
 		// Draw the pause message
 		//window.draw(pauseMessage);
-		window.draw(rectInter);
-		window.draw(newGame_botton);
-		window.draw(exitGame_botton);
-		window.draw(menu_newGame);
-		window.draw(menu_exitGame);
-		window.draw(soundIcon);
-
+		main_menu.draw(window);
+		
 	}
 
 	// Display things on screen

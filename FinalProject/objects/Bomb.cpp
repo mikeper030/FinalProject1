@@ -9,18 +9,21 @@ std::vector<sf::IntRect> Bomb::m_sheet;
 //=====================================
 
 
-Bomb::Bomb(sf::Vector2f position, sf::Vector2f size)
-	:StaticObject("res/bomb.png", position, size) 
+Bomb::Bomb(sf::Vector2f position, sf::Vector2f size,  sf::Font& f,SoundUtils&sound_manager)
+	:StaticObject("res/bomb.png", position, size),m_sound(sound_manager)
 {
 	m_texture.setSmooth(true);
 	m_texture.loadFromFile("res/bomb.png");
 	explosion.loadFromFile("res/explosion_sheet.png");
-	font.loadFromFile("res/DS-DIGI.TTF");
-	bomb_counter.setFillColor(sf::Color::Red);
-	bomb_counter.setFont(font);
-	bomb_counter.setCharacterSize(size.x / 2);
-	bomb_counter.setString("4");
 	
+	bomb_counter.setFillColor(sf::Color::Red);
+	bomb_counter.setFont(f);
+	bomb_counter.setCharacterSize(size.x/2);
+	bomb_counter.setString("4");
+	bomb_counter.setStyle(sf::Text::Bold);
+	sf::Vector2f t = position;
+	t.x += bomb_counter.getLocalBounds().width/2;
+	bomb_counter.setPosition(t);
 }
 
 //@override 
@@ -33,15 +36,26 @@ void Bomb::draw(sf::RenderWindow&w)
 		{
 			m_sprite.setTexture(m_texture);
 			w.draw(m_sprite);
+			if (m_timer.getElapsedTime().asSeconds() < 2 && m_timer.getElapsedTime().asSeconds() > 1)
+				bomb_counter.setString("3");
+			else
+				if (m_timer.getElapsedTime().asSeconds() < 3 && m_timer.getElapsedTime().asSeconds() > 2)
+					bomb_counter.setString("2");
+				else
+					if (m_timer.getElapsedTime().asSeconds() < 4 && m_timer.getElapsedTime().asSeconds() > 3)
+						bomb_counter.setString("1");
+				
+				
+				w.draw(bomb_counter);
 		}
 		else
 		{
 			is_blowing = true;
+			m_sound.playExplosion();
 		}
 	}
 	else
 	{
-		
 		if (m_timer.getElapsedTime().asSeconds() > 0.03 && sprite_index<81)
 		{
 			//only handle explosion blast on several frames
@@ -64,9 +78,11 @@ void Bomb::draw(sf::RenderWindow&w)
 		{
 			if (sprite_index == 81)
 			{
+				m_sound.stopExplosion();
 				is_finished = true;
 			}
 		}
+		
 		w.draw(m_sprite);
 	}
 	

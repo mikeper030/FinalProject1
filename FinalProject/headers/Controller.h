@@ -1,28 +1,36 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include "PauseMenu.h"
 #include "DynamicObject.h"
 #include "StaticObject.h"
-#include "Timer.h"
+#include "TimeUtils.h"
+#include "SoundUtils.h"
 #include "Hud.h"
 #include "AlertDialog.h"
-
+#include "MainMenu.h"
 class GameBoardManager;
 class Controller
 {
 public:
 	Controller();
 	void startGame(std::string name_file);
-	bool newGame(sf::Event & event, sf::Texture & texture, sf::RectangleShape & newGame_botton, sf::RectangleShape & exitGame_botton, sf::Font & font, sf::Text & menu_newGame, sf::Text & menu_exitGame, sf::RenderWindow & window);
+	void getCommand(int command, bool & isPause, bool & isPlaying, GameBoardManager & manager, TimeUtils & t, Hud & hud);
+	
 	static bool levelFinsihed();
 	static void setRestart(bool b);
 	static bool restart();
 	static void setLevelFinished(bool b);
+	static void setGameOver(bool b);
+	void updateDisplay(sf::RenderWindow & window, bool & isPlaying, sf::RectangleShape & winRec, sf::RectangleShape & boardRec, GameBoardManager & manager, Hud & hud, MainMenu & main);
 
-	void updateDisplay(sf::RenderWindow & window, bool & isPlaying, sf::RectangleShape & winRec, sf::RectangleShape & boardRec, GameBoardManager & manager, Hud & hud, sf::RectangleShape & rectInter, sf::RectangleShape & newGame_botton, sf::RectangleShape & exitGame_botton, sf::Text & menu_newGame, sf::Text & menu_exitGame, sf::Sprite & soundIcon);
  
 private:
 	int m_screen_height, m_screen_width;
-	static bool is_level_finished,should_restart;
+	static bool is_level_finished,should_restart,game_over;
+	bool should_exit;
+	SoundUtils sound;
+	
+	PauseMenu pauseMenu;
+
 	
 };
