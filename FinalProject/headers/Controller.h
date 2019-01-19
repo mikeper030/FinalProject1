@@ -15,7 +15,6 @@ public:
 	Controller();
 	void startGame(std::string name_file);
 	void getCommand(int command, bool & isPause, bool & isPlaying, GameBoardManager & manager, TimeUtils & t, Hud & hud);
-	
 	static bool levelFinsihed();
 	static void setRestart(bool b);
 	static bool restart();
@@ -26,10 +25,10 @@ public:
  
 private:
 	int m_screen_height, m_screen_width;
-	static bool is_level_finished,should_restart,game_over;
+	static bool is_level_finished, should_restart, game_over;
 	bool should_exit;
+	sf::Sprite m_cursor;
 	SoundUtils sound;
-	
 	PauseMenu pauseMenu;
 
 	

@@ -4,11 +4,13 @@ MainMenu::MainMenu(int s_width,int s_height)
 	:m_screen_width(s_width),m_screen_height(s_height)
 {
 	font.loadFromFile("res/1stenterprisesexpand.ttf");
-	texture.loadFromFile("res/inter.png");
-	texture.setSmooth(true);
+	m_tex.loadFromFile("res/inter.png");
+	m_tex.setSmooth(true);
 	rectInter.setSize(sf::Vector2f(s_width, s_height));
-	rectInter.setTexture(&texture);
-	rectInter.setPosition(0, 0);
+	m_sprite.setTexture(m_tex);
+	m_sprite.setPosition(0, 0);
+	m_sprite.scale(sf::Vector2f(4.8,4.1));
+	
 	newGame_botton.setSize(sf::Vector2f(s_width / 6, s_height / 12));
 	exitGame_botton.setSize(sf::Vector2f(s_width / 6, s_height / 12));
 	newGame_botton.setFillColor(sf::Color::Red);
@@ -55,10 +57,19 @@ bool MainMenu::newGame(sf::Event & event , sf::RenderWindow & window)
 	}
 	return false;
 }
-
+void MainMenu::setEnd()
+{
+	m_tex.loadFromFile("res/endgame.jpg");
+	m_tex.setSmooth(true);
+	end.setPosition(sf::Vector2f(0, 0));
+	end.setTexture(m_tex);
+	end.scale(sf::Vector2f(2.6,3));
+	m_sprite = end;
+}
 void MainMenu::draw(sf::RenderWindow & window)
 {
-	window.draw(rectInter);
+	//window.draw(rectInter);
+	window.draw(m_sprite);
 	window.draw(newGame_botton);
 	window.draw(exitGame_botton);
 	window.draw(menu_newGame);
