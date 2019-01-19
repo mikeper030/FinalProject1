@@ -28,6 +28,8 @@ private:
 	static std::vector<sf::IntRect> m_sheet;
 	sf::Clock m_timer;
 	sf::Texture explosion;
+	sf::Text bomb_counter;
+	sf::Font font;
 	int sprite_index = 0;
 	bool is_finished = false;
 	bool is_blowing=false;
