@@ -25,7 +25,7 @@ public:
 	
 	
 
-	GameBoardManager(std::ifstream & file,SoundUtils&sound, sf::RenderWindow & w);
+	GameBoardManager(std::ifstream & file,SoundUtils&sound);
 	void readSizeOfBoard();
    void createBoardByFile();
    void endGame();
@@ -65,7 +65,6 @@ private:
 	std::vector<Bomb> m_bombs;
 	bool is_player_sound_on;
 	
-	sf::RenderWindow & m_window;
 
 
 

@@ -13,7 +13,7 @@ SoundUtils::SoundUtils()
 	
 
 	steps.openFromFile("res/steps.wav");
-	steps.setVolume(60);
+	steps.setVolume(15);
 	steps.setLoop(true);
 
 	gameover.openFromFile("res/gameover.wav");
