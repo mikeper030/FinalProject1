@@ -9,8 +9,8 @@ float GameBoardManager::m_score = 0;
 float GameBoardManager::m_guards_num = 0;
 //========================================================================
 
-GameBoardManager::GameBoardManager(std::ifstream & file, SoundUtils&sound,sf::RenderWindow & w)
-	:m_file(file), m_curr_level(1), m_sound(sound), is_player_sound_on(false),m_window(w)
+GameBoardManager::GameBoardManager(std::ifstream & file, SoundUtils&sound)
+	:m_file(file), m_curr_level(1), m_sound(sound), is_player_sound_on(false),should_end(false)
 {
 	font.loadFromFile("res/DS-DIGI.TTF");
 }
@@ -43,7 +43,15 @@ void GameBoardManager::readSizeOfBoard()
 /////////////////////////////////////////////////////////
 void GameBoardManager::createBoardByFile()
 {
-	bool game_finished = false;
+	
+	if (should_end)
+	{
+		should_end = false;
+		endGame();	
+		
+	}
+	
+
 	int s_width = sf::VideoMode::getDesktopMode().width*0.7;
 	int  s_height = sf::VideoMode::getDesktopMode().height*0.75;
 	std::string str;
@@ -58,8 +66,11 @@ void GameBoardManager::createBoardByFile()
 	while (!m_file.eof())
 	{
 		getline(m_file, str);
-		
-
+		int e = m_file.peek();
+		if (e == EOF)
+		{
+			should_end = true;	
+		}
 		if (str.empty()) 
 	        break;
 		for (int j = 0; j < m_cols; j++)
@@ -67,7 +78,6 @@ void GameBoardManager::createBoardByFile()
 			switch (str[j])
 			{
 			case '/':
-
 				m_active.push_back(std::make_unique<Player>(v, sf::Vector2f(m_tile_width, m_tile_height),m_sound));
 				break;
 			case '!':
@@ -93,7 +103,6 @@ void GameBoardManager::createBoardByFile()
 			case '&':
 				m_static.push_back(std::make_unique<BonusGift>(v, sf::Vector2f(m_tile_width, m_tile_height), true));
 				m_static.push_back(std::make_unique<Rock>(v, sf::Vector2f(m_tile_width, m_tile_height)));
-
 				break;
 			default:
 				break;
@@ -102,15 +111,14 @@ void GameBoardManager::createBoardByFile()
 		}
 		v.x = 0;
 		v.y += m_tile_height;
-
-		
 	}
-	/*if (m_file.eof())
-	{
-		succes();
-	}*/
+	
 }
-
+void GameBoardManager::endGame()
+{
+	Controller::setGameOver(true);
+	
+}
 void GameBoardManager::moveGuards(sf::Vector2f pos, float delta, float speed, const std::vector<std::unique_ptr<DynamicObject>>& movable,
 	const std::vector<std::unique_ptr<StaticObject>>& statics)
 {
@@ -356,7 +364,6 @@ int  GameBoardManager::getCurrentLevel() const
 void GameBoardManager::goToNextLevel()
 {
 	m_sound.playSuccess();
-
 	m_score = m_score + 20 * m_guards_num;
 	m_curr_level++;
 	readSizeOfBoard();
@@ -375,34 +382,4 @@ void GameBoardManager::restartGame(TimeUtils&time)
 	time.setTime(getCurrentTimeLimit());
 	
 	
-}
-
-
-void GameBoardManager::succes()
-{
-	sf::Texture image;
-	image.loadFromFile("res/win.png");
-
-	sf::RectangleShape succesRect(sf::Vector2f(m_window.getSize().x, m_window.getSize().y));
-	succesRect.setTexture(&image);
-	succesRect.setPosition(0, 0);
-
-	while (m_window.isOpen())
-	{
-		// Handle events
-		sf::Event event;
-		while (m_window.pollEvent(event))
-		{
-			// Window closed or escape key pressed: exit
-			if ((event.type == sf::Event::Closed) ||
-				((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape )))
-			{
-				m_window.close();
-				break;
-			}
-
-		}
-		m_window.draw(succesRect);
-		m_window.display();
-	}
 }

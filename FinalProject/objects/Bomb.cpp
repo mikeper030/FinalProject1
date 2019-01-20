@@ -150,6 +150,7 @@ bool Bomb::collides(sf::Sprite & fr, const std::vector<std::unique_ptr<DynamicOb
 
 void Bomb::collide(Player & player, int index)
 {
+	
 	GameBoardManager::restartLevel();
 	player.dropLife();
 }

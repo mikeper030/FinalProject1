@@ -28,6 +28,7 @@ public:
 	GameBoardManager(std::ifstream & file,SoundUtils&sound, sf::RenderWindow & w);
 	void readSizeOfBoard();
    void createBoardByFile();
+   void endGame();
 	void moveGuards(sf::Vector2f pos, float delta, float speed, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics);
 	static std::vector<std::unique_ptr<StaticObject>> &getStaticObjects() ;
 	static std::vector<std::unique_ptr<DynamicObject>> &getDynamicObjects();
@@ -50,7 +51,7 @@ public:
 private:
 	float m_rows, m_cols, m_tile_width,m_tile_height;
 	SoundUtils& m_sound;
-	
+	bool should_end;
 	int m_curr_level;
 	sf::Font font;
 	std::ifstream & m_file;

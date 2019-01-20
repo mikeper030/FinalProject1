@@ -3,11 +3,12 @@
 #include "headers/Bomb.h"
 #include "headers/GameBoardManager.h"
 #include "headers/SoundUtils.h"
-//static initializers======================
+
+
+//static initializer======================
 bool Controller::is_level_finished = false;
 bool Controller::should_restart = false;
 bool Controller::game_over = false;
-
 //=========================================
 
 
@@ -34,10 +35,16 @@ void Controller::startGame(std::string  name_file)
 	sound.playIntro();
 	m_screen_width = sf::VideoMode::getDesktopMode().width*0.7;
 	m_screen_height = sf::VideoMode::getDesktopMode().height*0.75;
-	
+	sf::Texture texture;
+	texture.loadFromFile("res/cursor.png");
+	m_cursor.setTexture(texture);
+	m_cursor.scale(0.2, 0.2);
 	sf::RenderWindow window(sf::VideoMode(m_screen_width, m_screen_height, 32), "Bomberman",
 	sf::Style::Titlebar | sf::Style::Close);
-	//window.setIcon()
+	sf::Image icon;
+	window.setMouseCursorVisible(false);
+	icon.loadFromFile("res/icon.jpg");
+	window.setIcon(32, 32, icon.getPixelsPtr());
 	sf::RectangleShape winRec(sf::Vector2f(m_screen_width, m_screen_height));
 	winRec.setFillColor(sf::Color::Color(149, 176, 168));
 	winRec.setPosition(0, 0);
@@ -45,7 +52,7 @@ void Controller::startGame(std::string  name_file)
 	sf::RectangleShape boardRec(sf::Vector2f(m_screen_width, m_screen_height*0.9));
 	boardRec.setFillColor(sf::Color::Color(255, 173, 43));
 	boardRec.setPosition(0, m_screen_height*0.15);
-
+	
 	
 
 
@@ -77,6 +84,8 @@ void Controller::startGame(std::string  name_file)
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+			// Set position        
+			m_cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 			// Window closed or escape key pressed: exit
 			if ((event.type == sf::Event::Closed) ||
 				((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape||should_exit)))
@@ -87,11 +96,15 @@ void Controller::startGame(std::string  name_file)
 			else
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 				{
+					
 					sound.playIntro();
 					command = pauseMenu.pauseGame(window, event, m_screen_width, m_screen_height);
 					getCommand(command,isPause,isPlaying,manager,t,hud);
 				}
 		}
+		
+			
+		
 		float deltaTime = (float) 0.007;
 		if (mainMenu.newGame(event, window))
 		{
@@ -170,6 +183,9 @@ void Controller::startGame(std::string  name_file)
 				}
 					if (game_over)
 					{
+						isPlaying = false;
+						mainMenu.setEnd();
+						mainMenu.draw(window);
 						game_over = false;
 						manager.restartGame(t);
 						hud.setBombs(manager.getLevelBombsMax());
@@ -232,6 +248,7 @@ void Controller::getCommand(int command,bool&isPause,bool&isPlaying,GameBoardMan
 
 
 
+
 bool Controller::levelFinsihed()
 {
 	return is_level_finished;
@@ -282,7 +299,7 @@ void Controller::updateDisplay(sf::RenderWindow&window,bool&isPlaying,sf::Rectan
 		main_menu.draw(window);
 		
 	}
-
+	window.draw(m_cursor);
 	// Display things on screen
 	
 }
