@@ -25,7 +25,7 @@ public:
 	
 	
 
-	GameBoardManager(std::ifstream & file,SoundUtils&sound);
+	GameBoardManager(std::ifstream & file,SoundUtils&sound, sf::RenderWindow & w);
 	void readSizeOfBoard();
    void createBoardByFile();
 	void moveGuards(sf::Vector2f pos, float delta, float speed, const std::vector<std::unique_ptr<DynamicObject>>& movable, const std::vector<std::unique_ptr<StaticObject>>& statics);
@@ -36,6 +36,7 @@ public:
 	
 	int &getCurrentTimeLimit();
 	void restartGame(TimeUtils&utils);
+	void succes();
 	void updateRobot(int width, float playerSpeed, float deltaTime, sf::Event&);
 	std::vector<Bomb>& getBombs();
 	static int &getLevelBombsMax();
@@ -63,6 +64,7 @@ private:
 	std::vector<Bomb> m_bombs;
 	bool is_player_sound_on;
 	
+	sf::RenderWindow & m_window;
 
 
 

@@ -56,9 +56,8 @@ void Controller::startGame(std::string  name_file)
 	
 	
 	MainMenu mainMenu(m_screen_width,m_screen_height);
-	GameBoardManager manager(file,sound);
+	GameBoardManager manager(file,sound,window);
 	//in game head up display
-	
 	manager.readSizeOfBoard();
 	manager.createBoardByFile();
 	TimeUtils t(manager.getCurrentTimeLimit());

@@ -211,6 +211,9 @@
     <None Include="res\boom.ogg" />
     <None Include="res\game.ogg" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\board.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -75,6 +75,9 @@
     <ClInclude Include="headers\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="objects\Bomb.cpp">
@@ -140,6 +143,9 @@
     <ClCompile Include="menu\MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Bomberman.png">
@@ -179,5 +185,26 @@
   <ItemGroup>
     <Font Include="res\1stenterprisesexpand.ttf" />
     <Font Include="res\sansation.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\16-Game Over.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\game.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\intro.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\steps.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\boom.ogg" />
+    <None Include="res\game.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\board.txt" />
   </ItemGroup>
 </Project>

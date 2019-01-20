@@ -9,8 +9,8 @@ float GameBoardManager::m_score = 0;
 float GameBoardManager::m_guards_num = 0;
 //========================================================================
 
-GameBoardManager::GameBoardManager(std::ifstream & file, SoundUtils&sound)
-	:m_file(file), m_curr_level(1), m_sound(sound), is_player_sound_on(false)
+GameBoardManager::GameBoardManager(std::ifstream & file, SoundUtils&sound,sf::RenderWindow & w)
+	:m_file(file), m_curr_level(1), m_sound(sound), is_player_sound_on(false),m_window(w)
 {
 	font.loadFromFile("res/DS-DIGI.TTF");
 }
@@ -59,6 +59,7 @@ void GameBoardManager::createBoardByFile()
 	{
 		getline(m_file, str);
 		
+
 		if (str.empty()) 
 	        break;
 		for (int j = 0; j < m_cols; j++)
@@ -101,8 +102,13 @@ void GameBoardManager::createBoardByFile()
 		}
 		v.x = 0;
 		v.y += m_tile_height;
+
+		
 	}
-	
+	/*if (m_file.eof())
+	{
+		succes();
+	}*/
 }
 
 void GameBoardManager::moveGuards(sf::Vector2f pos, float delta, float speed, const std::vector<std::unique_ptr<DynamicObject>>& movable,
@@ -369,4 +375,34 @@ void GameBoardManager::restartGame(TimeUtils&time)
 	time.setTime(getCurrentTimeLimit());
 	
 	
+}
+
+
+void GameBoardManager::succes()
+{
+	sf::Texture image;
+	image.loadFromFile("res/win.png");
+
+	sf::RectangleShape succesRect(sf::Vector2f(m_window.getSize().x, m_window.getSize().y));
+	succesRect.setTexture(&image);
+	succesRect.setPosition(0, 0);
+
+	while (m_window.isOpen())
+	{
+		// Handle events
+		sf::Event event;
+		while (m_window.pollEvent(event))
+		{
+			// Window closed or escape key pressed: exit
+			if ((event.type == sf::Event::Closed) ||
+				((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape )))
+			{
+				m_window.close();
+				break;
+			}
+
+		}
+		m_window.draw(succesRect);
+		m_window.display();
+	}
 }
