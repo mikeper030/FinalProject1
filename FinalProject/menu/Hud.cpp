@@ -1,7 +1,7 @@
 #include "headers/Hud.h"
 #include <sstream>
 #include <iostream>
-Hud::Hud(int score, int lives, int level_bombs, int level_no, int s_width, int s_height, Timer&t)
+Hud::Hud(int score, int lives, int level_bombs, int level_no, int s_width, int s_height, TimeUtils&t)
 	:m_timer(t)
 {
 
@@ -85,7 +85,7 @@ void Hud::setLife(int lives)
 	std::string f(o.str());
 	life.setString(f);
 }
-void Hud::setTimer(Timer&t)
+void Hud::setTimer(TimeUtils&t)
 {
 	m_timer = t;
 }
@@ -95,6 +95,11 @@ void Hud::setBombs(int bombs)
 	o << "BOMBS: " << bombs;
 	std::string f(o.str());
 	bombsLeft.setString(f);
+}
+
+void Hud::restart()
+{
+
 }
 
 

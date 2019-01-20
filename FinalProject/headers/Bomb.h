@@ -1,10 +1,11 @@
 #pragma once
 #include "StaticObject.h"
 #include "DynamicObject.h"
+#include "SoundUtils.h"
 class Bomb :public StaticObject
 {
 public:
-	Bomb(sf::Vector2f position, sf::Vector2f size);
+	Bomb(sf::Vector2f position, sf::Vector2f size, sf::Font& f,SoundUtils&sound);
 	void draw(sf::RenderWindow & w) override;
 	static std::vector<sf::IntRect> &getSheet();
 	
@@ -31,6 +32,7 @@ private:
 	sf::Text bomb_counter;
 	sf::Font font;
 	int sprite_index = 0;
+	SoundUtils& m_sound;
 	bool is_finished = false;
 	bool is_blowing=false;
 };

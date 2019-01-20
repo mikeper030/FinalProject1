@@ -92,6 +92,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -100,6 +103,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -113,6 +119,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,6 +134,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -140,18 +148,23 @@
     <ClInclude Include="headers\Guard.h" />
     <ClInclude Include="headers\Hud.h" />
     <ClInclude Include="headers\AlertDialog.h" />
+    <ClInclude Include="headers\MainMenu.h" />
     <ClInclude Include="headers\Object.h" />
+    <ClInclude Include="headers\PauseMenu.h" />
     <ClInclude Include="headers\Player.h" />
     <ClInclude Include="headers\Rock.h" />
     <ClInclude Include="headers\SmartGuard.h" />
+    <ClInclude Include="headers\SoundUtils.h" />
     <ClInclude Include="headers\StaticObject.h" />
-    <ClInclude Include="headers\Timer.h" />
+    <ClInclude Include="headers\TimeUtils.h" />
     <ClInclude Include="headers\Wall.h" />
     <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="menu\Hud.cpp" />
+    <ClCompile Include="menu\MainMenu.cpp" />
+    <ClCompile Include="menu\PauseMenu.cpp" />
     <ClCompile Include="objects\Bomb.cpp" />
     <ClCompile Include="manager\Controller.cpp" />
     <ClCompile Include="objects\BonusGift.cpp" />
@@ -167,7 +180,8 @@
     <ClCompile Include="objects\Rock.cpp" />
     <ClCompile Include="objects\SmartGuard.cpp" />
     <ClCompile Include="base\StaticObject.cpp" />
-    <ClCompile Include="utilities\Timer.cpp" />
+    <ClCompile Include="utilities\SoundUtils.cpp" />
+    <ClCompile Include="utilities\TimeUtils.cpp" />
     <ClCompile Include="objects\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,12 +203,12 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\16-Game Over.wav" />
-    <Media Include="res\boom.wav" />
     <Media Include="res\game.wav" />
     <Media Include="res\intro.wav" />
     <Media Include="res\steps.wav" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\boom.ogg" />
     <None Include="res\game.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

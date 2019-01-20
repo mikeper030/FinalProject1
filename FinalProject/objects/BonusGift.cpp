@@ -2,7 +2,7 @@
 #include "headers/DynamicObject.h"
 #include "headers/StaticObject.h"
 #include "headers/GameBoardManager.h" 
-
+#include "headers/SmartGuard.h"
 BonusGift::BonusGift(sf::Vector2f position, sf::Vector2f size,bool b)
 	:StaticObject("res/gift.png",position,size),is_hidden(b)
 {
@@ -53,10 +53,13 @@ void BonusGift::collide(Player & player, int index)
 
 void BonusGift::collide(SmartGuard & guard, int index)
 {
+	guard.changeDirection();
+	
 }
 
-void BonusGift::collide(DummyGuard & otherobject, int index)
+void BonusGift::collide(DummyGuard & guard, int index)
 {
+	guard.changeDirection();
 }
 
 void BonusGift::collide(Wall & otherObject, int index)

@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
 //A utility class for countdown timer implementation
-class Timer
+class TimeUtils
 {
 public:
-	Timer(int seconds);
-	
+	TimeUtils(int seconds);
+	static void restart();
 	void setTime(int seconds);
 	void setUnlimitedTimeMode(bool b);
 	void secondPassed();
@@ -15,6 +15,6 @@ public:
 private:
 	std::string m_time_formatted;
 	bool unlimited;
-	int m_time;
+	static int m_time,start_time;
 };
 

@@ -27,9 +27,6 @@
     <ClInclude Include="headers\Rock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="headers\Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -66,7 +63,16 @@
     <ClInclude Include="headers\BonusGift.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="headers\TimeUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\SoundUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\PauseMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,9 +110,6 @@
     <ClCompile Include="base\DynamicObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilities\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="manager\GameBoardManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -125,7 +128,16 @@
     <ClCompile Include="objects\BonusGift.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
+    <ClCompile Include="utilities\TimeUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\SoundUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\PauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,25 +179,5 @@
   <ItemGroup>
     <Font Include="res\1stenterprisesexpand.ttf" />
     <Font Include="res\sansation.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="res\16-Game Over.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="res\boom.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="res\game.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="res\intro.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="res\steps.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\game.ogg" />
   </ItemGroup>
 </Project>

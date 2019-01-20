@@ -1,31 +1,41 @@
-#include "headers/Timer.h"
+#include "headers/TimeUtils.h"
 #include <sstream>
 #include <iostream>
-Timer::Timer(int seconds)
+
+int TimeUtils::m_time = 0;
+int TimeUtils::start_time = 0;
+
+TimeUtils::TimeUtils(int seconds)
 	:unlimited(false)
 {
 	m_time = seconds;
+	start_time = seconds;
 }
 
-void Timer::setTime(int seconds)
+void TimeUtils::restart()
+{
+	m_time = start_time;
+}
+
+void TimeUtils::setTime(int seconds)
 {
 	
 	m_time = seconds;
 }
-void Timer::setUnlimitedTimeMode(bool b)
+void TimeUtils::setUnlimitedTimeMode(bool b)
 {
 	unlimited = b;
 	if(b)m_time = -2;
 }
-void Timer::secondPassed()
+void TimeUtils::secondPassed()
 {
 	if(!unlimited)m_time--;
 }
-int Timer::getElapsedTimeAsSeconds() const
+int TimeUtils::getElapsedTimeAsSeconds() const
 {
 	return m_time;
 }
-std::string Timer::getTimeFormatted() 
+std::string TimeUtils::getTimeFormatted()
 {
 	
 	if (m_time == -2)
@@ -46,7 +56,7 @@ std::string Timer::getTimeFormatted()
 	return m_time_formatted;
 }
 
-bool Timer::isFinished() const
+bool TimeUtils::isFinished() const
 {
 	return m_time==0;
 }
